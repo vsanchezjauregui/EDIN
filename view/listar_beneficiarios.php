@@ -238,12 +238,12 @@
                         <label>Genero</label>
                         <div>
                           <div class="col-md-3">
-                            <input type="checkbox" checked class="minimal" value="">
+                            <input type="checkbox" checked class="minimal" value="" id="masculino" name="masculino">
                             <i class="fa fa-mars"></i>
                             <br>
                           </div>
                           <div class="col-md-3">
-                            <input type="checkbox" checked class="minimal-red" value="">
+                            <input type="checkbox" checked class="minimal-red" value="" id="femenino" name="femenino">
                             <i class="fa fa-venus"></i>
                           </div>
                         </div>
@@ -253,7 +253,10 @@
                         <label>Edad</label><br>
                         <div class="col-sm-2 no-margin no-padding"><?php echo = $min_edad['edadminima'] ?> años</div>
                         <div class="col-sm-7">
-                        <input type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo = $min_edad['edadminima']?>" data-slider-max="<?php echo = $max_edad['edadmaxima'] ?>" data-slider-step="1" data-slider-value="[<? echo = $min_edad['edadminima'].','.$max_edad['edadmaxima'] ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+
+                        <input id="edad" name="edad" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo = $min_edad['edadminima']?>" data-slider-max="<?php echo = $max_edad['edadmaxima'] ?>" data-slider-step="1" data-slider-value="[<? echo = $min_edad['edadminima'].','.$max_edad['edadmaxima'] ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+
+                       
                         </div>
                         <div class="col-sm-3 no-margin no-padding"><?php echo = $max_edad['edadmaxima'] ?> años</div>
                       </div>
