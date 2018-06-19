@@ -214,12 +214,12 @@
                         <label>Genero</label>
                         <div>
                           <div class="col-md-3">
-                            <input type="checkbox" checked class="minimal" value="">
+                            <input type="checkbox" checked class="minimal" value="" id="masculino" name="masculino">
                             <i class="fa fa-mars"></i>
                             <br>
                           </div>
                           <div class="col-md-3">
-                            <input type="checkbox" checked class="minimal-red" value="">
+                            <input type="checkbox" checked class="minimal-red" value="" id="femenino" name="femenino">
                             <i class="fa fa-venus"></i>
                           </div>
                         </div>
@@ -229,7 +229,7 @@
                         <label>Edad</label><br>
                         <div class="col-sm-2 no-margin no-padding">0 años</div>
                         <div class="col-sm-7">
-                        <input type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="99" data-slider-step="1" data-slider-value="[0,99]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+                        <input id="edad" name="edad" type="text" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="99" data-slider-step="1" data-slider-value="[0,99]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
                         </div>
                         <div class="col-sm-3 no-margin no-padding">99 años</div>
                       </div>
@@ -237,7 +237,7 @@
                       <div class="form-group"><!--Nacionalidad-->
                         <label>Nacionalidad</label>
                         <small>Para todos, deje este campo vacío</small>
-                        <select class="form-control select2" multiple="multiple"  style="width: 100%;">
+                        <select id="nac" name="nac" class="form-control select2" multiple="multiple"  style="width: 100%;">
                           <option value="AF">Afganistán</option>
                           <option value="AL">Albania</option>
                           <option value="DE">Alemania</option>
