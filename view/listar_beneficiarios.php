@@ -242,7 +242,7 @@
                             Revisar ese php y recorrer el array para sacar sus valores.
                             Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
                             si se estan mandando valores (isset)-->
-                        <select class="form-control select2" multiple="multiple"  style="width: 100%;">
+                        <select name="nac[]" id="nac[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <option value="AF">Afganistán</option>
                           <option value="AL">Albania</option>
                           <option value="DE">Alemania</option>
@@ -482,7 +482,12 @@
                       <div class="form-group"><!--Oficio-->
                         <label>Oficio</label>
                         <small> Para todos, deje este campo vacío</small>
-                        <select class="form-control select2" multiple="multiple"  style="width: 100%;">
+                        <!----------Verificar los posibles cambios. Agregar name="prof[]" id="prof[]"---------->
+                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
+                            Revisar ese php y recorrer el array para sacar sus valores.
+                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
+                            si se estan mandando valores (isset)-->
+                        <select "prof[]" id="prof[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($profesiones as $profesion) {
                               echo "<option value='".$profesion["beneficiary_profesion"]."'>".$profesion["beneficiary_profesion"]."</option>";
@@ -494,7 +499,8 @@
                         <label>Tiempo en condición de indigencia</label><br>
                         <div class="col-sm-2 no-margin no-padding">0 años</div>
                         <div class="col-sm-7">
-                        <input type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="99" data-slider-step="1" data-slider-value="[0,99]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+                        <!----Se agrego name y id para poder pasar los datos con POST---->
+                        <input name="indigen" id="indigen" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="99" data-slider-step="1" data-slider-value="[0,99]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
                         </div>
                         <div class="col-sm-3 no-margin no-padding">99 años</div>
                       </div>
@@ -503,7 +509,12 @@
                       <div class="form-group"><!--Provincia-->
                         <label>Provincia</label>
                         <small> Para todas, deje este campo vacío</small>
-                        <select class="form-control select2" multiple="multiple"  style="width: 100%;">
+                        <!----------Verificar los posibles cambios. Agregar name="provin[]" id="provin[]"---------->
+                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
+                            Revisar ese php y recorrer el array para sacar sus valores.
+                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
+                            si se estan mandando valores (isset)-->
+                        <select name="provin[]" id="provin[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <option value="SJ">San José</option>
                           <option value="CA">Cartago</option>
                           <option value="AL">Alajuela</option>
@@ -515,7 +526,12 @@
                       <div class="form-group"><!--Canton-->
                         <label>Cantón</label>
                         <small>Para todos, deje este campo vacío</small>
-                        <select class="form-control select2" multiple="multiple"  style="width: 100%;">
+                        <!----------Verificar los posibles cambios. Agregar name="cant[]" id="cant[]"---------->
+                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
+                            Revisar ese php y recorrer el array para sacar sus valores.
+                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
+                            si se estan mandando valores (isset)-->
+                        <select name="cant[]" id="cant[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <option value="SJ">San José</option>
                           <option value="CA">Cartago</option>
                           <option value="AL">Alajuela</option>
@@ -527,7 +543,12 @@
                       <div class="form-group"><!--Distrito-->
                         <label>Distrito</label>
                         <small>Para todos, deje este campo vacío</small>
-                        <select class="form-control select2" multiple="multiple"  style="width: 100%;">
+                        <!----------Verificar los posibles cambios. Agregar name="dist[]" id="dist[]"---------->
+                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
+                            Revisar ese php y recorrer el array para sacar sus valores.
+                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
+                            si se estan mandando valores (isset)-->
+                        <select name="dist[]" id="dist[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <option value="SJ">San José</option>
                           <option value="CA">Cartago</option>
                           <option value="AL">Alajuela</option>
@@ -540,7 +561,8 @@
                         <label>Horas de formación recibidas</label><br>
                         <div class="col-sm-2 no-margin no-padding">0 horas</div>
                         <div class="col-sm-7">
-                        <input type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="99" data-slider-step="1" data-slider-value="[0,99]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+                        <!----Se agrego name y id para poder pasar los datos con POST---->
+                        <input name="horas" id="horas" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="99" data-slider-step="1" data-slider-value="[0,99]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
                         </div>
                         <div class="col-sm-3 no-margin no-padding">99 horas</div>
                       </div>
