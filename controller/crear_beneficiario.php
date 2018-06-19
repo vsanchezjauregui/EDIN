@@ -11,7 +11,7 @@
     $hijos = $_POST["hijos"];
     $indigencia = $_POST["indigencia"];
     $nacionalidad = strtolower($_POST["nacionalidad"]);
-    $fecha_nacimiento = substr($_POST["fecha_nacimiento"], 6)."-".substr($_POST["fecha_nacimiento"], 0,2)."-".substr($_POST["fecha_nacimiento"], 3,2);
+    $fecha_nacimiento = substr($_POST["fecha_nacimiento"], 6)."-".substr($_POST["fecha_nacimiento"], 3,2)."-".substr($_POST["fecha_nacimiento"], 0,2);
     $genero = strtolower($_POST["genero"]);
     $profesion = $_POST["profesion"];
     $ultimoTitulo = $_POST["ultimoTitulo"];
