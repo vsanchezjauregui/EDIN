@@ -237,6 +237,11 @@
                       <div class="form-group"><!--Nacionalidad-->
                         <label>Nacionalidad</label>
                         <small>Para todos, deje este campo vacío</small>
+                        <!----------Verificar los posibles cambios. Agregar name="nac[]" id="nac[]"---------->
+                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
+                            Revisar ese php y recorrer el array para sacar sus valores.
+                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
+                            si se estan mandando valores (isset)-->
                         <select class="form-control select2" multiple="multiple"  style="width: 100%;">
                           <option value="AF">Afganistán</option>
                           <option value="AL">Albania</option>
