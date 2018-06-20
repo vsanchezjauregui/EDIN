@@ -7,8 +7,7 @@
     $con = $conex->usarConexion();
     $query_profesiones = "SELECT DISTINCT beneficiaries.beneficiary_profesion FROM beneficiaries WHERE beneficiaries.beneficiary_profesion is not null";
     $profesiones = $conex->consulta_varios($query_profesiones, $con);
-    //<!--------Verificar los querys en mysql antes de correrlo-------->
-    $query_nacionalidades "SELECT DISTINCT beneficiaries.beneficiary_nationality FROM beneficiaries WHERE beneficiaries.beneficiary_nationality is not null";
+    $query_nacionalidades = "SELECT DISTINCT beneficiaries.beneficiary_nationality FROM beneficiaries WHERE beneficiaries.beneficiary_nationality is not null";
     $nacionalidades = $conex->consulta_varios($query_nacionalidades, $con);
     $query_provincias = "SELECT DISTINCT beneficiaries.beneficiary_province FROM beneficiaries WHERE beneficiaries.beneficiary_province is not null";
     $provincias = $conex->consulta_varios($query_provincias, $con);
@@ -16,18 +15,22 @@
     $cantones = $conex->consulta_varios($query_cantones, $con);
     $query_distritos = "SELECT DISTINCT beneficiaries.beneficiary_district FROM beneficiaries WHERE beneficiaries.beneficiary_district is not null";
     $distritos = $conex->consulta_varios($query_distritos, $con);
-    //verificar min y max para horas. Verificar consulta unica
-    //$query_formacion_min = "SELECT    MIN((SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries)) AS formacionminima from Beneficiaries";
-    //$min_formacion = $conex->consultaunica($query_formacion_min, $con);
-    //$query_formacion_max = "SELECT    MAX((SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries)) AS formacionmaxima from Beneficiaries";
-    //$max_formacion = $conex->consultaunica($query_formacion_max, $con);
-    $query_edad_min = "Select MIN(beneficiaries.beneficiary_age) as edadminima FROM beneficiaries";
-    $min_edad = $conex->consultaunica($query_edad_min, $con);
-    $query_edad_max = "Select MAX(beneficiaries.beneficiary_age) as edadmaxima FROM beneficiaries";
-    $max_edad = $conex->consultaunica($query_edad_max, $con);
+    $query_formacion_max = "SELECT    MAX((SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries)) AS formacionmaxima from Beneficiaries";
+    $max_formacion = $conex->consultaunica($query_formacion_max, $con);
+    $query_edad_min = "Select MAX(beneficiaries.beneficiary_birth) as nacimientominima FROM beneficiaries";
+    $min_nacimiento = $conex->consultaunica($query_edad_min, $con);
+    $naciemiento_min = new DateTime($min_nacimiento["nacimientominima"]);
+    $today = new DateTime();
+    $min_edad = $today->diff($naciemiento_min)->y;
+    $query_edad_max = "Select MIN(beneficiaries.beneficiary_birth) as nacimientomaximo FROM beneficiaries";
+    $max_nacimiento = $conex->consultaunica($query_edad_max, $con);
+    $naciemiento_max = new DateTime($max_nacimiento["nacimientomaximo"]);    
+    $max_edad = $today->diff($naciemiento_max)->y;
+
+
     $query_indigencia_min = "Select MIN(beneficiaries.beneficiary_condition_years) as indigenciaminima FROM beneficiaries";
-    $min_indigencia = $conex->consultaunica($query_indigenica_min, $con);
-    $query_indigencia_max = "Select MIN(beneficiaries.beneficiary_condition_years) as indigenciamaxima FROM beneficiaries";
+    $min_indigencia = $conex->consultaunica($query_indigencia_min, $con);
+    $query_indigencia_max = "Select MAX(beneficiaries.beneficiary_condition_years) as indigenciamaxima FROM beneficiaries";
     $max_indigencia = $conex->consultaunica($query_indigencia_max, $con);
 
     $profesiones = $conex->consulta_varios($query_profesiones, $con);
@@ -251,14 +254,14 @@
                       <br>                   
                       <div class="form-group"><!--Edad-->
                         <label>Edad</label><br>
-                        <div class="col-sm-2 no-margin no-padding"><?php echo = $min_edad['edadminima'] ?> años</div>
-                        <div class="col-sm-7">
 
-                        <input id="edad" name="edad" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo = $min_edad['edadminima']?>" data-slider-max="<?php echo = $max_edad['edadmaxima'] ?>" data-slider-step="1" data-slider-value="[<? echo = $min_edad['edadminima'].','.$max_edad['edadmaxima'] ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+                        <div class="col-sm-2 no-margin no-padding"><?php echo $min_edad?> años</div>
+                        <div class="col-sm-7">
+                        <input id="edad" name="edad" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo $min_edad?>" data-slider-max="<?php echo $max_edad?>" data-slider-step="1" data-slider-value="[<?php echo $min_edad.','.$max_edad?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
 
                        
                         </div>
-                        <div class="col-sm-3 no-margin no-padding"><?php echo = $max_edad['edadmaxima'] ?> años</div>
+                        <div class="col-sm-3 no-margin no-padding"><?php echo $max_edad?> años</div>
                       </div>
                       <br>
                       <div class="form-group"><!--Nacionalidad-->
@@ -270,10 +273,12 @@
                             Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
                             si se estan mandando valores (isset)-->
                         <select name="nac[]" id="nac[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
-                        <!--------Verificar que imprime.-------->
+                        <!--------Hay que arreglar los "codigos de pais" por los paises respectivos. -------->
+                        <!--      Me parece prudente corregirlo desde la insersion pero eso implica buscar luego para pasar las banderas
+                      -->
                           <?php 
                             foreach ($nacionalidades as $nacionalidad) {
-                              echo "<option value='".$nacionalidad["beneficiary_nacionality"]."'>".$profesion["beneficiary_nacionality"]."</option>";
+                              echo "<option value='".$nacionalidad["beneficiary_nationality"]."'>".$nacionalidad["beneficiary_nationality"]."</option>";
                             }
                           ?>
                         </select>
@@ -282,10 +287,6 @@
                         <label>Oficio</label>
                         <small> Para todos, deje este campo vacío</small>
                         <!----------Verificar los posibles cambios. Agregar name="prof[]" id="prof[]"---------->
-                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
-                            Revisar ese php y recorrer el array para sacar sus valores.
-                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
-                            si se estan mandando valores (isset)-->
                         <select "prof[]" id="prof[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($profesiones as $profesion) {
@@ -296,12 +297,11 @@
                       </div>
                       <div class="form-group"><!--Indigencia-->
                         <label>Tiempo en condición de indigencia</label><br>
-                        <div class="col-sm-2 no-margin no-padding"><?php echo = $min_indigencia['indigenciaminima'] ?> años</div>
+                        <div class="col-sm-2 no-margin no-padding"><?php echo $min_indigencia['indigenciaminima'] ?> años</div>
                         <div class="col-sm-7">
-                        <!----Se agrego name y id para poder pasar los datos con POST---->
-                        <input name="indigen" id="indigen" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo = $min_indigencia['indigenciaminima'] ?>" data-slider-max="<?php echo = $max_indigencia['indigenciamaxima'] ?>" data-slider-step="1" data-slider-value="[<?php echo =  $min_indigencia['indigenciaminima'].','.$max_indigencia['indigenciamaxima']  ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+                        <input name="indigen" id="indigen" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo $min_indigencia['indigenciaminima'] ?>" data-slider-max="<?php echo $max_indigencia['indigenciamaxima'] ?>" data-slider-step="1" data-slider-value="[<?php echo  $min_indigencia['indigenciaminima'].','.$max_indigencia['indigenciamaxima']  ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
                         </div>
-                        <div class="col-sm-3 no-margin no-padding"><?php echo = $max_indigencia['indigenciamaxima'] ?> años</div>
+                        <div class="col-sm-3 no-margin no-padding"><?php echo $max_indigencia['indigenciamaxima'] ?> años</div>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -309,14 +309,10 @@
                         <label>Provincia</label>
                         <small> Para todas, deje este campo vacío</small>
                         <!----------Verificar los posibles cambios. Agregar name="provin[]" id="provin[]"---------->
-                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
-                            Revisar ese php y recorrer el array para sacar sus valores.
-                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
-                            si se estan mandando valores (isset)-->
                         <select name="provin[]" id="provin[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($provincias as $provincia) {
-                              echo "<option value='".$provincia["beneficiary_province"]."'>".$profesion["beneficiary_province"]."</option>";
+                              echo "<option value='".$provincia["beneficiary_province"]."'>".$provincia["beneficiary_province"]."</option>";
                             }
                           ?>
                         </select>
@@ -325,14 +321,10 @@
                         <label>Cantón</label>
                         <small>Para todos, deje este campo vacío</small>
                         <!----------Verificar los posibles cambios. Agregar name="cant[]" id="cant[]"---------->
-                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
-                            Revisar ese php y recorrer el array para sacar sus valores.
-                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
-                            si se estan mandando valores (isset)-->
                         <select name="cant[]" id="cant[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($cantones as $canton) {
-                              echo "<option value='".$caton["beneficiary_canton"]."'>".$profesion["beneficiary_canton"]."</option>";
+                              echo "<option value='".$canton["beneficiary_canton"]."'>".$canton["beneficiary_canton"]."</option>";
                             }
                           ?>                          
                         </select>
@@ -341,26 +333,21 @@
                         <label>Distrito</label>
                         <small>Para todos, deje este campo vacío</small>
                         <!----------Verificar los posibles cambios. Agregar name="dist[]" id="dist[]"---------->
-                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
-                            Revisar ese php y recorrer el array para sacar sus valores.
-                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
-                            si se estan mandando valores (isset)-->
                         <select name="dist[]" id="dist[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($distritos as $distrito) {
-                              echo "<option value='".$distrito["beneficiary_district"]."'>".$profesion["beneficiary_district"]."</option>";
+                              echo "<option value='".$distrito["beneficiary_district"]."'>".$distrito["beneficiary_district"]."</option>";
                             }
                           ?>
                         </select>
                       </div>
                       <div class="form-group"><!--Formacion-->
                         <label>Horas de formación recibidas</label><br>
-                        <div class="col-sm-2 no-margin no-padding"><?php echo = $min_formacion['formacionminima'] ?> horas</div>
+                        <div class="col-sm-2 no-margin no-padding">0 horas</div>
                         <div class="col-sm-7">
-                        <!----Se agrego name y id para poder pasar los datos con POST---->
-                        <input name="horas" id="horas" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo = $min_formacion['formacionminima'] ?>" data-slider-max="<?php echo = $max_formacion['formacionmaxima'] ?>" data-slider-step="1" data-slider-value="[<?php echo = $min_formacion['formacionminima'].','.$max_formacion['formacionmaxima'] ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+                        <input name="horas" id="horas" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="<?php echo $max_formacion['formacionmaxima'] ?>" data-slider-step="1" data-slider-value="[0,<?php echo $max_formacion['formacionmaxima'] ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
                         </div>
-                        <div class="col-sm-3 no-margin no-padding"><?php echo = $max_formacion['formacionmaxima'] ?> horas</div>
+                        <div class="col-sm-3 no-margin no-padding"><?php echo $max_formacion['formacionmaxima'] ?> horas</div>
                       </div>
                     </div>
                   </div>
