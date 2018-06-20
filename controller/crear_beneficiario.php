@@ -70,6 +70,9 @@
     if (!empty($profesion)) {
     	$campos .= ", `beneficiary_profesion`";
     	$valores .= ', "'.$profesion.'"';
+    }else{
+    	$campos .= ", `beneficiary_profesion`";
+    	$valores .= ', "'ninguna'"';
     }
 
     if (!empty($senas)) {
