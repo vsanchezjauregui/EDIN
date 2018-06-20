@@ -124,14 +124,14 @@
 
     $query = "INSERT INTO `beneficiaries` (".$campos.") VALUES (".$valores.")";
 
-    echo $query;
-    //$insertar = mysqli_query($con,$query);
+    //echo $query;
+    $insertar = mysqli_query($con,$query);
 
-    /*if (!$insertar) { 
+    if (!$insertar) { 
 		header('Location: ../view/registrar_beneficiario.php?variable=false');
 	} else{
 		header('Location: ../view/registrar_beneficiario.php?variable=true');
-	}*/
+	}
 
     $conex->destruir();
 ?>

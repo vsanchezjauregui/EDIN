@@ -1,6 +1,68 @@
 <?php  
-    
     $querygeneral = "SELECT *, (SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries) AS HORAS  from Beneficiaries";
+    if (isset($_GET['fechaMin'])) {
+      $querygeneral .= " WHERE beneficiary_birth >='".$_GET['fechaMin']."' and beneficiary_birth <= '".$_GET['fechaMax']."' and beneficiary_condition_years >= ".$_GET["indigenciaMin"]." and beneficiary_condition_years <= ".$_GET["indigenciaMax"];
+      if (!$_GET['horasMin']==0) {
+        $querygeneral .= " and (SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries) >= ".$_GET['horasMin']." and (SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries) <= ".$_GET['horasMax'];
+      }else{
+        $querygeneral .= " and ((SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries) IS NULL or (SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries) <= ".$_GET['horasMax'].")";
+      }
+      if (isset($_GET['genero'])) {
+        $querygeneral .= " AND beneficiary_gender =";
+        if ($_GET['genero']=='m') {
+           $querygeneral .= "'masculino'";
+        }else{
+          $querygeneral .= "'femenino'";
+        }
+      }
+      if (isset($_GET['nacionalidades'])) {
+        $nac_fil = unserialize($_GET['nacionalidades']);
+        $querygeneral .= " and (";
+        foreach ($nac_fil as $row) {
+          $querygeneral .= "beneficiary_nationality = '".$row."' or ";
+        }
+        $querygeneral = substr($querygeneral, 0, -3);  
+        $querygeneral .= ")";
+      }
+      if (isset($_GET['oficios'])) {
+        $oficios_fil = unserialize($_GET['oficios']);
+        $querygeneral .= " and (";
+        foreach ($oficios_fil as $row) {
+          $querygeneral .= "beneficiary_profesion = '".$row."' or ";
+        }
+        $querygeneral = substr($querygeneral, 0, -3);  
+        $querygeneral .= ")";
+      }
+      if (isset($_GET['provin'])) {
+        $prov_fil = unserialize($_GET['provin']);
+        $querygeneral .= " and (";
+        foreach ($prov_fil as $row) {
+          $querygeneral .= "beneficiary_province = '".$row."' or ";
+        }
+        $querygeneral = substr($querygeneral, 0, -3);  
+        $querygeneral .= ")";
+      }
+      if (isset($_GET['cant'])) {
+        $cant_fil = unserialize($_GET['cant']);
+        $querygeneral .= " and (";
+        foreach ($cant_fil as $row) {
+          $querygeneral .= "beneficiary_canton = '".$row."' or ";
+        }
+        $querygeneral = substr($querygeneral, 0, -3);  
+        $querygeneral .= ")";
+      }
+      if (isset($_GET['dist'])) {
+        $dist_fil = unserialize($_GET['dist']);
+        $querygeneral .= " and (";
+        foreach ($dist_fil as $row) {
+          $querygeneral .= "beneficiary_district = '".$row."' or ";
+        }
+        $querygeneral = substr($querygeneral, 0, -3);  
+        $querygeneral .= ")";
+      }
+
+    }
+    //echo $querygeneral;
     require_once '../model/conexion.php';
     $conex =  new ConexionMySQL();
     $resulta = $conex->conectar();
@@ -267,11 +329,6 @@
                       <div class="form-group"><!--Nacionalidad-->
                         <label>Nacionalidad</label>
                         <small>Para todos, deje este campo vacío</small>
-                        <!----------Verificar los posibles cambios. Agregar name="nac[]" id="nac[]"---------->
-                        <!--Con esto deberia mandar un arrego a aplicar_filtro.php. 
-                            Revisar ese php y recorrer el array para sacar sus valores.
-                            Puedo hacer un var_dump para ver el array antes de recorrerlo pero primero verificar
-                            si se estan mandando valores (isset)-->
                         <select name="nac[]" id="nac[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                         <!--------Hay que arreglar los "codigos de pais" por los paises respectivos. -------->
                         <!--      Me parece prudente corregirlo desde la insersion pero eso implica buscar luego para pasar las banderas
@@ -287,7 +344,7 @@
                         <label>Oficio</label>
                         <small> Para todos, deje este campo vacío</small>
                         <!----------Verificar los posibles cambios. Agregar name="prof[]" id="prof[]"---------->
-                        <select "prof[]" id="prof[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
+                        <select name="prof[]" id="prof[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($profesiones as $profesion) {
                               echo "<option value='".$profesion["beneficiary_profesion"]."'>".$profesion["beneficiary_profesion"]."</option>";
@@ -308,7 +365,7 @@
                       <div class="form-group"><!--Provincia-->
                         <label>Provincia</label>
                         <small> Para todas, deje este campo vacío</small>
-                        <!----------Verificar los posibles cambios. Agregar name="provin[]" id="provin[]"---------->
+                        
                         <select name="provin[]" id="provin[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($provincias as $provincia) {
@@ -320,7 +377,7 @@
                       <div class="form-group"><!--Canton-->
                         <label>Cantón</label>
                         <small>Para todos, deje este campo vacío</small>
-                        <!----------Verificar los posibles cambios. Agregar name="cant[]" id="cant[]"---------->
+                        
                         <select name="cant[]" id="cant[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($cantones as $canton) {
@@ -332,7 +389,7 @@
                       <div class="form-group"><!--Distrito-->
                         <label>Distrito</label>
                         <small>Para todos, deje este campo vacío</small>
-                        <!----------Verificar los posibles cambios. Agregar name="dist[]" id="dist[]"---------->
+                        
                         <select name="dist[]" id="dist[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($distritos as $distrito) {
