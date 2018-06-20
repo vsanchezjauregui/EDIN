@@ -14,6 +14,7 @@
     $fecha_nacimiento = substr($_POST["fecha_nacimiento"], 6)."-".substr($_POST["fecha_nacimiento"], 3,2)."-".substr($_POST["fecha_nacimiento"], 0,2);
     $genero = strtolower($_POST["genero"]);
     $profesion = $_POST["profesion"];
+    $profesion_recortada = str_replace(' ', '', $profesion);
     $ultimoTitulo = $_POST["ultimoTitulo"];
     $centroEstudios = $_POST["centroEstudios"];
     $anoCulminacion = $_POST["anoCulminacion"];
@@ -66,13 +67,16 @@
     }else{
     	$valores .= ', '.$indigencia;	
     }
-
-    if (!empty($profesion)) {
+    
+    if (!empty($profesion_recortada)) {
+	//Si la profesion viene con un campo vacio.
+	//COMPROBAR QUE ENTRE CUANDO ESTE VACIO!!!!!!!!!
     	$campos .= ", `beneficiary_profesion`";
     	$valores .= ', "'.$profesion.'"';
     }else{
     	$campos .= ", `beneficiary_profesion`";
     	$valores .= ', "'ninguna'"';
+	echo "esta vacia";
     }
 
     if (!empty($senas)) {
@@ -128,13 +132,13 @@
     $query = "INSERT INTO `beneficiaries` (".$campos.") VALUES (".$valores.")";
 
     //echo $query;
-    $insertar = mysqli_query($con,$query);
+    /*$insertar = mysqli_query($con,$query);
 
     if (!$insertar) { 
 		header('Location: ../view/registrar_beneficiario.php?variable=false');
 	} else{
 		header('Location: ../view/registrar_beneficiario.php?variable=true');
-	}
+	}*/
 
     $conex->destruir();
 ?>
