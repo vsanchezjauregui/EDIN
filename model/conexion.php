@@ -41,7 +41,6 @@
                $res[] = $row;
             }
             return $res;   
-            
         }
 	}
 ?>

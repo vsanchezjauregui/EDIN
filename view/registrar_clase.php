@@ -5,6 +5,15 @@
     $query_alianzas = "SELECT * FROM alliances;";
     $con = $conex->usarConexion();
     $alianzas = $conex->consulta_varios($query_alianzas, $con);
+    //verifico si la tabla existe
+    //$query_existe = "SHOW TABLES LIKE 'temp_participaciones'";
+    /*if (count($conex->consulta_varios($query_existe, $con))>0) {
+      $query_participaciones = "SELECT *, (SELECT alliances.alliance_name FROM alliances WHERE alliances.id_Alliances = temp_participaciones.id_Alianza) as ALIANZA FROM temp_participaciones";
+      $temp_participaciones = $conex->consulta_varios($query_participaciones, $con);
+    } else{
+      $temp_participaciones = [];
+    }*/
+
 ?>
 
 <!DOCTYPE html>
@@ -206,21 +215,13 @@
             <div class="box-body">
               <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
               <ul class="todo-list" id="participaciones_creadas" name="participaciones_creadas">
-                <!--<li>
-                  <span class="text">Cruz Roja</span>
-
-                  <div class="tools">
-                    <i class="fa fa-eye" data-toggle="modal" href="#modal-ver_cooperacion"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>-->
               </ul>
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix no-border">
               <?php 
                 if (count($alianzas)==0) {
-                  echo '<button type="button" class="btn btn-default pull-right" data-toggle="modal" href="#modal-agregar_alianza" disabled="true"><i class="fa fa-user-plus"></i> No hay insitituciones registradas</button>';
+                  echo '<button type="button" class="btn btn-default pull-right" disabled="true"><i class="fa fa-user-plus"></i> No hay insitituciones registradas</button>';
                 } else{
                   echo '<button type="button" class="btn btn-default pull-right" data-toggle="modal" href="#modal-agregar_alianza"><i class="fa fa-user-plus"></i> Agregar Institución</button>';
                 }
@@ -256,8 +257,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" id="agregar_participacion" name="agregar_participacion">Guardar</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Listo</button>
+              <button type="button" class="btn btn-primary" onclick='crear()'>Guardar</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -323,12 +324,30 @@
 <!-- iCheck 1.0.1 -->
 <script src="plugins/iCheck/icheck.min.js"></script>
 
-<script src="../controller/agregar_participacion.js"></script>
 
 
 
 <!-- Page script -->
 <script>
+  function crear(){
+    $( function(){
+      var id_alianza = $("#alianza").val();
+      var descripcion = $("#participacion").val();
+      
+      $.get("../controller/agregar_participacion.php", { alianza: id_alianza, participacion : descripcion}, function(data) {
+        $("#participaciones_creadas").empty();
+        $("#participaciones_creadas").html(data);
+      });
+    })
+  }
+  function eliminar(id){
+    $( function(){
+      $.get("../controller/eliminarparticipacion.php", { id: id}, function(data) {
+        $("#participaciones_creadas").empty();
+        $("#participaciones_creadas").html(data);
+      });
+    })
+  }
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
@@ -365,6 +384,10 @@
     $('.mailbox-messages input[type="checkbox"]').iCheck({
       checkboxClass: 'icheckbox_flat-blue',
       radioClass: 'iradio_flat-blue'
+    });
+
+    $(".elim").click(function(){
+      alert("prueba");
     });
 
     //Enable check and uncheck all functionality

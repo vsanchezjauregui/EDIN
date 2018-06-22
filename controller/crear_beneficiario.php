@@ -69,8 +69,6 @@
     }
     
     if (!empty($profesion_recortada)) {
-	//Si la profesion viene con un campo vacio.
-	//COMPROBAR QUE ENTRE CUANDO ESTE VACIO!!!!!!!!!
     	$campos .= ", `beneficiary_profesion`";
     	$valores .= ', "'.$profesion.'"';
     }else{
