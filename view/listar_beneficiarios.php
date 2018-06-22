@@ -335,7 +335,7 @@
                       -->
                           <?php 
                             foreach ($nacionalidades as $nacionalidad) {
-                              echo "<option value='".$nacionalidad["beneficiary_nationality"]."'>".$nacionalidad["beneficiary_nationality"]."</option>";
+                              echo "<option value='".$nacionalidad["beneficiary_nationality"]."'>".ucwords($nacionalidad["beneficiary_nationality"], " ")."</option>";
                             }
                           ?>
                         </select>
@@ -343,7 +343,6 @@
                       <div class="form-group"><!--Oficio-->
                         <label>Oficio</label>
                         <small> Para todos, deje este campo vacío</small>
-                        <!----------Verificar los posibles cambios. Agregar name="prof[]" id="prof[]"---------->
                         <select name="prof[]" id="prof[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
                           <?php 
                             foreach ($profesiones as $profesion) {

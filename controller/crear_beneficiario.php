@@ -75,8 +75,7 @@
     	$valores .= ', "'.$profesion.'"';
     }else{
     	$campos .= ", `beneficiary_profesion`";
-    	$valores .= ', "'ninguna'"';
-	echo "esta vacia";
+    	$valores .= ', "Ninguna"';
     }
 
     if (!empty($senas)) {
@@ -132,13 +131,14 @@
     $query = "INSERT INTO `beneficiaries` (".$campos.") VALUES (".$valores.")";
 
     //echo $query;
-    /*$insertar = mysqli_query($con,$query);
+    $insertar = mysqli_query($con,$query);
 
     if (!$insertar) { 
 		header('Location: ../view/registrar_beneficiario.php?variable=false');
 	} else{
 		header('Location: ../view/registrar_beneficiario.php?variable=true');
-	}*/
+	}
+
 
     $conex->destruir();
 ?>
