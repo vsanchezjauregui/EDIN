@@ -143,7 +143,6 @@
                 <div class="form-group">
                   <label class="control-label">Indique el Técnico</label>
                   <select class="form-control select2" style="width: 100%;" name="tecnico" id="tecnico">
-                    <!--<option value="adm" cheked>Técnico en Administración de Empresas</option>-->
                   </select>
                 </div>
                 <div class="form-group">

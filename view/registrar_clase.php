@@ -1,19 +1,25 @@
 <?php  
-    require_once '../model/conexion.php';
-    $conex =  new ConexionMySQL();
-    $resulta = $conex->conectar();
-    $query_alianzas = "SELECT * FROM alliances;";
-    $con = $conex->usarConexion();
-    $alianzas = $conex->consulta_varios($query_alianzas, $con);
-    //verifico si la tabla existe
-    //$query_existe = "SHOW TABLES LIKE 'temp_participaciones'";
-    /*if (count($conex->consulta_varios($query_existe, $con))>0) {
-      $query_participaciones = "SELECT *, (SELECT alliances.alliance_name FROM alliances WHERE alliances.id_Alliances = temp_participaciones.id_Alianza) as ALIANZA FROM temp_participaciones";
-      $temp_participaciones = $conex->consulta_varios($query_participaciones, $con);
-    } else{
-      $temp_participaciones = [];
-    }*/
 
+  if(isset($_GET['variable'])) {
+    switch ($_GET['variable']) {
+      case 1:
+        echo '<script language="javascript">alert("Por favor seleccione algún módulo");</script>';
+        break;
+      case 2:
+        echo '<script language="javascript">alert("Por favor indique los beneficiarios asistentes");</script>';
+        break;
+      case 3:
+        echo '<script language="javascript">alert("Clase registrada");</script>';
+        break;
+      }
+
+  }
+  require_once '../model/conexion.php';
+  $conex =  new ConexionMySQL();
+  $resulta = $conex->conectar();
+  $query_alianzas = "SELECT * FROM alliances;";
+  $con = $conex->usarConexion();
+  $alianzas = $conex->consulta_varios($query_alianzas, $con);
 ?>
 
 <!DOCTYPE html>
@@ -142,7 +148,7 @@
     <!-- Main content -->
     <section class="content container-fluid">
       <!-- form start -->
-      <form role="form" action="">
+      <form role="form" action="../controller/crear_clase.php" method="post">
         <div class="row">
           <!-- left column -->
           <div class="col-md-4"><!--Clase-->
@@ -156,7 +162,7 @@
                 </div>
                 <div class="form-group"><!--Modulo-->
                   <label class="control-label">Indique el Módulo</label>
-                  <select class="form-control" id="modulo" name="modulo">
+                  <select class="form-control" id="modulo" name="modulo" required>
                   </select>
                 </div>
                 <div class="form-group"><!--Fecha-->
@@ -165,16 +171,16 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="datepicker">
+                    <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" required>
                   </div>
                 </div>
                 <div class="form-group"><!--Horas-->
                   <label class="control-label">Horas de clase impartidas</label>
-                  <input type="number" min="0" class="form-control" id="horas">
+                  <input type="number" min="0" class="form-control" id="horas" name="horas" required>
                 </div>
                 <div class="form-group"><!--Horas-->
                   <label class="control-label">Observaciones</label>
-                  <textarea class="form-control" rows="3" ></textarea>
+                  <textarea class="form-control" rows="3" id="observaciones" name="observaciones"></textarea>
                 </div>                
               </div>
             </div>

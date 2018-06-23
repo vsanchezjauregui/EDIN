@@ -21,7 +21,7 @@
         $cadena="";
         //Recorro el arreglo de respuesta
         while ($row = $resultado->fetch_array()) {
-            $cadena .= '<tr><td><input type="checkbox" class="flat-red" value="'.$row["id_beneficiario"].'"> '.$row["nombre_beneficiario"].' '.$row["apellido_beneficiario"].'</td></tr>';
+            $cadena .= '<tr><td><input id="matriculados" name="matriculados[]" type="checkbox" class="flat-red" value="'.$row["id_beneficiario"].'"> '.$row["nombre_beneficiario"].' '.$row["apellido_beneficiario"].'</td></tr>';
         } 
         echo $cadena;
         }else{
