@@ -64,7 +64,7 @@
   </style>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" >
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -335,6 +335,13 @@
 
 <!-- Page script -->
 <script>
+  window.onbeforeunload = function () {
+    var data1 = "";
+    $.get("../controller/eliminar_temporal.php", { }, function(data) {
+      data1 = data;
+    });
+      return data1;
+  }
   function crear(){
     $( function(){
       var id_alianza = $("#alianza").val();
