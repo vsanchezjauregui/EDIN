@@ -350,6 +350,9 @@
       $.get("../controller/agregar_participacion.php", { alianza: id_alianza, participacion : descripcion}, function(data) {
         $("#participaciones_creadas").empty();
         $("#participaciones_creadas").html(data);
+        $("#participacion").val('');
+        $("#alianza").find("option[value='"+id_alianza+"']").prop("disabled",true);
+        $("#alianza").val('');
       });
     })
   }
