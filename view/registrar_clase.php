@@ -271,27 +271,6 @@
         <!-- /.modal-dialog -->
       </div>
       <div class="modal fade" id="modal-ver_cooperacion" name="modal-ver_cooperacion"><!--Ver cooperacion-->
-            <!--
-        <div class="modal-dialog">
-          <div class="modal-content" >
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Cruz Roja</h4>
-            </div>
-            <div class="modal-body">
-              <div class="box-body" style="text-align:justify;">
-                Participó enviando un isntructor que dico 3 horas a dar clases de primeros auxilios. Brindó las herramientas necesarias para realizar la práctica respectiva. Realizó la evaluación de los estudiantes.
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-          
-        </div>
-        
-            -->
       </div>
     </section>
     <!-- /.content -->
@@ -408,6 +387,7 @@
       $.get("../controller/eliminarparticipacion.php", { id: id}, function(data) {
         $("#participaciones_creadas").empty();
         $("#participaciones_creadas").html(data);
+        $("#alianza").find("option[value='"+id+"']").prop("disabled",false);
       });
     })
   }

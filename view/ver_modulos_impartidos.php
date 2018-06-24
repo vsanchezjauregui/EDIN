@@ -209,7 +209,7 @@
                           if ($clase["id_Open_mods"]==$modulo["id"]) {
                             echo '  <div class="col-sm-12>"
                                       <div class="col-sm-2 pull-right">
-                                        <a data-toggle="modal" href="#modal-ver_clase'.$clase["id_Classes"].'">ver clase</a>
+                                        <a data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">ver clase</a>
                                       </div>
                                       <div class="col-sm-2 pull-right">
                                         '.$clase["class_time"].' horas
@@ -269,7 +269,7 @@
                         echo '<div id="'.$modulo["id"].'"><div class="col-sm-5"><b>'.$modulo["MODULO"].'</b></div><div class="col-sm-3"><b>'.$modulo["FECHA_FROM"].'</b></div><div class="col-sm-2"><b>'.$horas_modulo.' horas</b></div><div class="col-sm-2"><a data-toggle="collapse" data-parent="#accordion" href="#collapse'.$modulo["id"].'"><b>'.$clases_modulo.' clases</b></a></div><div id="collapse'.$modulo["id"].'" class="panel-collapse collapse col-sm-12">';
                         foreach ($clases as $clase) {
                           if ($clase["id_Open_mods"]==$modulo["id"]) {
-                            echo '<div class="col-sm-12"><div class="col-sm-2 pull-right"><a  data-toggle="modal" href="#modal-'.$clase["id_Classes"].'">ver clase</a></div><div class="col-sm-2 pull-right">'.$clase["class_time"].' horas</div><div class="col-sm-2 pull-right">'.$clase["class_date"].'</div></div>';
+                            echo '<div class="col-sm-12"><div class="col-sm-2 pull-right"><a  data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">ver clase</a></div><div class="col-sm-2 pull-right">'.$clase["class_time"].' horas</div><div class="col-sm-2 pull-right">'.$clase["class_date"].'</div></div>';
                           }
                         }
                         echo "</div></div>";
@@ -307,89 +307,8 @@
           </div>
         </div>
       </div>
-
-      <?php 
-        /*foreach ($clases as $clase) {
-          $query_marticulados = "SELECT (SELECT beneficiaries.beneficiary_name FROM beneficiaries WHERE beneficiaries.id_Beneficiaries = bridge_class_benef.id_Beneficiaries) as nombre_beneficiarios, (SELECT beneficiaries.beneficiary_last_name FROM beneficiaries WHERE beneficiaries.id_Beneficiaries = bridge_class_benef.id_Beneficiaries) as apellido_beneficiarios FROM bridge_class_benef WHERE bridge_class_benef.id_classes =".$clase["id_Classes"];
-          $matriculados = $conex->consulta_varios($query_marticulados, $con);
-          echo '<div class="modal fade" id="modal-'.$clase["id_Classes"].'"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Clase Impartida</h4></div><div class="modal-body"><div class="box-body" style="text-align:justify;"><div class="col-sm-6"><div class="form-group">
-                    <label>Técnico</label><br>
-                    Técnico en Administración de Empresas
-                  </div>
-                  <div class="form-group">
-                    <label>Módulo</label><br>
-                    '.$clase["MODULO"].'
-                  </div>
-                  <div class="form-group">
-                    <label>Fecha en que se impartió</label><br>
-                    '.$clase["class_date"].'
-                  </div>
-                  <div class="form-group">
-                    <label>Horas impartidas</label><br>
-                    '.$clase["class_time"].' horas
-                  </div>
-                  <div class="form-group">
-                    <label>Observaciones</label><br>
-                    '.$clase["class_observations"].'
-                  </div>
-                </div>
-                <div class="col-sm-6"><!--Alumnos-->
-                  <div class="box box-solid box-info" id="matriculados">
-                    <div class="box-header">
-                    <h4 class="box-title">Beneficiarios asistentes</h4>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <table class="table table-striped table-hover">
-                        <tbody>';
-          foreach ($matriculados as $matriculado) {
-            echo '<tr><td>'.$matriculado["nombre_beneficiarios"].' '.$matriculado["apellido_beneficiarios"].'</td></tr>';
-          }
-          echo '</tbody></table>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12"><!--Alianzas-->
-                  <div class="box box-solid box-info" id="matriculados">
-                    <div class="box-header">
-                      <h4 class="box-title">Instituciones participantes</h4>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                                            <table class="table table-striped table-hover">
-                        <tbody>
-                          <tr>
-                            <td>Cruz Roja</td>
-                          </tr>
-                          <tr>
-                            <td>Municipalidad de San José</td>
-                          </tr>
-                          <tr>
-                            <td>Fundación Génesis</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>';
-        }*/
-      ?>
-
-
-
-
-
       <div class="modal fade" id="modal-ver_clase"><!--Ver clase-->
+        <!-->
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -399,7 +318,7 @@
             </div>
             <div class="modal-body">
               <div class="box-body" style="text-align:justify;">
-                <div class="col-sm-6"><!--Datos de la Clase-->
+                <div class="col-sm-6">
                   <div class="form-group">
                     <label>Técnico</label><br>
                     Técnico en Administración de Empresas
@@ -421,12 +340,11 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque ducimus velit, earum quidem, iusto dolorem. Et ipsam totam quas blanditiis, pariatur maxime ipsa iste, doloremque neque doloribus, error. Corrupti, tenetur.
                   </div>
                 </div>
-                <div class="col-sm-6"><!--Alumnos-->
+                <div class="col-sm-6">
                   <div class="box box-solid box-info" id="matriculados">
                     <div class="box-header">
                     <h4 class="box-title">Beneficiarios asistentes</h4>
                     </div>
-                    <!-- /.box-header -->
                     <div class="box-body">
                       <table class="table table-striped table-hover">
                         <tbody>
@@ -450,14 +368,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-12"><!--Alianzas-->
+                <div class="col-sm-12">
                   <div class="box box-solid box-info" id="matriculados">
                     <div class="box-header">
                       <h4 class="box-title">Instituciones participantes</h4>
                     </div>
-                    <!-- /.box-header -->
+
                     <div class="box-body">
-                                            <table class="table table-striped table-hover">
+                      <table class="table table-striped table-hover">
                         <tbody>
                           <tr>
                             <td>Cruz Roja</td>
@@ -479,9 +397,8 @@
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
             </div>
           </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        </!-->
       </div>
       <div class="modal fade" id="modal-cerrar_modulo"><!--Cerrar Modulo-->
         <div class="modal-dialog">
@@ -566,6 +483,7 @@
 
 <script>
 
+
  $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
   checkboxClass: 'icheckbox_minimal-blue',
   radioClass   : 'iradio_minimal-blue'
@@ -589,9 +507,19 @@ $('.mailbox-messages input[type="checkbox"]').iCheck({
     
 </script>
 
+
+  function verclase(id){
+    $( function(){
+      //alert(id);
+      $.get("../controller/cargar_clase.php", { id: id}, function(data) {
+        $("#modal-ver_clase").empty();
+        $("#modal-ver_clase").html(data);
+      });
+    })
+  }
+
 </script>
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
+
+
 </body>
 </html>
