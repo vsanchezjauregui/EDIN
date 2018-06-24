@@ -6,9 +6,9 @@
     $query_modulos = "SELECT open_mods.id_Open_mods as id, (SELECT modules.module_name FROM modules WHERE modules.id_Modules = open_mods.id_Modules) as MODULO, open_mods.open_mod_estatus as ESTATUS, open_mods.open_mod_value as VALOR, open_mods.open_mod_date_from as FECHA_FROM, open_mods.open_mode_date_to as FECHA_TO FROM open_mods;";
     $query_clases = "SELECT classes.id_Classes, classes.id_Open_mods, classes.class_date, classes.class_time, classes.class_observations, (SELECT (SELECT modules.module_name FROM modules WHERE modules.id_Modules = open_mods.id_Modules) FROM open_mods WHERE open_mods.id_Open_mods = classes.id_Open_mods) as MODULO FROM classes;";
     $query_finalizados = "SELECT COUNT(open_mods.id_Open_mods) as FINALIZADOS FROM open_mods WHERE open_mods.open_mod_estatus = 0";
-    $query_abiertos = "SELECT COUNT(open_mods.id_Open_mods) as FINALIZADOS FROM open_mods WHERE open_mods.open_mod_estatus = 1";
+    $query_abiertos = "SELECT COUNT(open_mods.id_Open_mods) as ABIERTOS FROM open_mods WHERE open_mods.open_mod_estatus = 1";
     $finalizados = $conex->consultaunica($query_finalizados, $con);
-    $finalizados = $finalizados["FINALIZADOS"];
+    $finalizados = $finalizados["ABIERTOS"];
     $abiertos = $conex->consultaunica($query_abiertos, $con);
     $abiertos = $abiertos["FINALIZADOS"];
     $modulos = $conex->consulta_varios($query_modulos, $con);
@@ -34,6 +34,8 @@
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="plugins/iCheck/all.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
@@ -295,7 +297,11 @@
             <!-- /.box-header -->
             <div class="box-body">
               <ul><a href="abrir_modulo.php"><b>Abrir nuevo Módulo</b></a></ul>
-              <ul><a data-toggle="modal" href="#modal-cerrar_modulo"><b>Cerrar Módulos en curso</b></a></ul>
+              <?php 
+              if (!$abiertos == 0) {
+                    echo '<ul><a data-toggle="modal" href="#modal-cerrar_modulo"><b>Cerrar Módulos en curso</b></a></ul>';
+              }
+              ?>
               <ul><a href="registrar_clase.php"><b>Registrar clase impartida</b></a></ul>
             </div>
           </div>
@@ -477,23 +483,43 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <div class="modal fade" id="modal-cerrar_modulo"><!--Ver clase-->
+      <div class="modal fade" id="modal-cerrar_modulo"><!--Cerrar Modulo-->
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Clase Impartida</h4>
+                <!--------------Verificar ortografia-------------->
+              <h4 class="modal-title">Cerrar Modulo</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
                 <label>Indique el Módulo que desea Cerrar</label>
                   <select class="form-control" id="modulo">
+                    <?php
+                        foreach ($modulos as $modulo) {
+                          if ($modulo["ESTATUS"] == 1) {
+                            echo '<option value="'.$modulo["id"].'" cheked>.$modulo["MODULO"].</option>';
+                          }
+                        }
+                    ?>
                     <option value="info" cheked>Introduccióna la Informática</option>
-                    <option value="mk">Mercadeo</option>
-                    <option value="mate">Matemáticas</option>
-                    <option value="conta">Contabilidad</option>
                   </select>
+              </div>
+              <div class="box-body no-padding" id="tabla_aprobados" name="tabla_aprobados">
+                <div class="mailbox-controls">
+                  <!-- Check all button -->
+                  <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                  </button> Seleccionar todos
+                  <!-- /.pull-right -->
+                </div>
+                <div class="table-responsive mailbox-messages">
+                  <table class="table table-hover table-striped">
+                    <tbody id="aprobados" name="aprobados">
+                    </tbody>
+                  </table>
+                  <!-- /.table -->
+                </div>
               </div>
               <strong>Advertencia!</strong> Una vez que guarde los cambios, el curso quedará como cerrado y no podrá registrar más clases impartidas en él.
             </div>
@@ -538,6 +564,30 @@
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
+<script>
+
+ $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+  checkboxClass: 'icheckbox_minimal-blue',
+  radioClass   : 'iradio_minimal-blue'
+})
+//Red color scheme for iCheck
+$('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+  checkboxClass: 'icheckbox_minimal-red',
+  radioClass   : 'iradio_minimal-red'
+})
+//Flat red color scheme for iCheck
+$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+  checkboxClass: 'icheckbox_flat-green',
+  radioClass   : 'iradio_flat-green'
+})
+//Enable iCheck plugin for checkboxes
+//iCheck for checkbox and radio inputs
+$('.mailbox-messages input[type="checkbox"]').iCheck({
+  checkboxClass: 'icheckbox_flat-blue',
+  radioClass: 'iradio_flat-blue'
+});
+    
+</script>
 
 </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
