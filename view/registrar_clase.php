@@ -1,6 +1,6 @@
 <?php  
 
-  if(isset($_GET['variable'])) {
+  /*if(isset($_GET['variable'])) {
     switch ($_GET['variable']) {
       case 1:
         echo '<script language="javascript">alert("Por favor seleccione algún módulo");</script>';
@@ -12,8 +12,7 @@
         echo '<script language="javascript">alert("Clase registrada");</script>';
         break;
       }
-
-  }
+  }*/
   require_once '../model/conexion.php';
   $conex =  new ConexionMySQL();
   $resulta = $conex->conectar();
@@ -148,7 +147,7 @@
     <!-- Main content -->
     <section class="content container-fluid">
       <!-- form start -->
-      <form role="form" action="../controller/crear_clase.php" method="post">
+      <!--<form role="form" action="../controller/crear_clase.php" method="post">-->
         <div class="row">
           <!-- left column -->
           <div class="col-md-4"><!--Clase-->
@@ -178,7 +177,7 @@
                   <label class="control-label">Horas de clase impartidas</label>
                   <input type="number" min="0" class="form-control" id="horas" name="horas" required>
                 </div>
-                <div class="form-group"><!--Horas-->
+                <div class="form-group"><!--Observaciones-->
                   <label class="control-label">Observaciones</label>
                   <textarea class="form-control" rows="3" id="observaciones" name="observaciones"></textarea>
                 </div>                
@@ -238,8 +237,8 @@
           <!--/.col (right) -->
         </div>
         <!-- /.row -->
-        <input type="submit" class="btn btn-block btn-primary btn-flat" value="Registrar"></input>
-      </form>
+        <button type="button" class="btn btn-block btn-primary btn-flat" onclik="registrarClase()" value="">Registrar</button>
+      <!--</form>-->
       <div class="modal fade" id="modal-agregar_alianza"><!--Agregar alianza-->
         <div class="modal-dialog">
           <div class="modal-content">
@@ -343,6 +342,43 @@
       data1 = data;
     });
       return data1;
+  }
+  
+  function registrarClase(){
+    $( function(){
+      //Traigo los valores de la ventana
+      var modulo = $("#modulo").val();
+      var fecha = $("#datepicker").val();
+      var horas = $("#horas").val();
+      var alumnos = new Array();
+      $('input[type=checkbox]:checked').each(function() {
+          alumnos.push($(this).val());
+      });
+      var observaciones = $("#observaciones").val();
+
+      //Hago las validaciones
+      if (modulo == 0) {
+        //Valido que el Modulo este selecionado
+        alert("Por favor seleccione un modulo");
+      } elseif (fecha=='') {
+        //Valido la fecha de la clase
+        alert("Por favor seleccione la fecha en que se impartio");
+      } elseif (horas == '') {
+        //Valido las horas impartidas
+        alert("Por favor indique la cantidad de horas de clases impartidas");
+      } elseif (alumnos.length == 0) {
+        //Valido que hayan alumnos asistentes
+        alert("Por favor seleccione al menos un beneficiario asistente");
+      } else {
+        //Si paso todas las validaciones, Ejecuto el PHP que va a almacenar la clase
+         $.get("../controller/crear_clase.php", { modulo: modulo, fecha : fecha, horas : horas, alumnos: alumnos, observaciones: observaciones}, function(data) {
+         //Muestro una alerta con el mensaje de exito o error
+         alert(data.split('=')[1]);
+         //Recargo la pagina
+         location.reload(true);
+        });
+      }
+    })
   }
   function crear(){
     $( function(){
