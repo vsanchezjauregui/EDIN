@@ -271,9 +271,10 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <div class="modal fade" id="modal-ver_cooperacion"><!--Ver cooperacion-->
+      <div class="modal fade" id="modal-ver_cooperacion" name="modal-ver_cooperacion"><!--Ver cooperacion-->
+            <!--
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content" >
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
@@ -288,9 +289,10 @@
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
             </div>
           </div>
-          <!-- /.modal-content -->
+          
         </div>
-        <!-- /.modal-dialog -->
+        
+            -->
       </div>
     </section>
     <!-- /.content -->
@@ -353,6 +355,15 @@
         $("#participacion").val('');
         $("#alianza").find("option[value='"+id_alianza+"']").prop("disabled",true);
         $("#alianza").val('');
+      });
+    })
+  }
+  function participacion(id){
+    $( function(){
+      //alert("entro");
+      $.get("../controller/cargar_participacion.php", { id: id}, function(data) {
+        $("#modal-ver_cooperacion").empty();
+        $("#modal-ver_cooperacion").html(data);
       });
     })
   }

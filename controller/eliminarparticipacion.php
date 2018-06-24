@@ -7,7 +7,7 @@ $con = $conex->usarConexion();
 $alianza = $_GET['id'];
 
 $query = "DELETE FROM temp_participaciones WHERE temp_participaciones.id_Alianza = $alianza";
-$crear = mysqli_query($con,$query);
+$eliminar = mysqli_query($con,$query);
 
 //resgreso los datos que hay insertados
 $query_participaciones = "SELECT *, (SELECT alliances.alliance_name FROM alliances WHERE alliances.id_Alliances = temp_participaciones.id_Alianza) as ALIANZA FROM temp_participaciones";

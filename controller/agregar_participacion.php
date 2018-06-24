@@ -22,7 +22,7 @@ $temp_participaciones = $conex->consulta_varios($query_participaciones, $con);
 
 if (count($temp_participaciones)>0) {
     foreach ($temp_participaciones as $temp_participacion) {
-        echo "<li id='alianza_".$temp_participacion["id_Alianza"]."' value='".$temp_participacion["ALIANZA"]."'><span class='text'>".$temp_participacion["ALIANZA"]."</span><div class='tools'><i class='fa fa-eye' data-toggle='modal' href='#modal-ver_cooperacion'></i><i onclick='eliminar(".$temp_participacion["id_Alianza"].")' class='fa fa-trash-o'></i></div></li>";
+        echo "<li id='alianza_".$temp_participacion["id_Alianza"]."' value='".$temp_participacion["ALIANZA"]."'><span class='text'>".$temp_participacion["ALIANZA"]."</span><div class='tools'><i class='fa fa-eye' data-toggle='modal' onclick='participacion(".$temp_participacion["id_Alianza"].")' href='#modal-ver_cooperacion'></i><i onclick='eliminar(".$temp_participacion["id_Alianza"].")' class='fa fa-trash-o'></i></div></li>";
     }
 }   
 
