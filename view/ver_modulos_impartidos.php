@@ -8,9 +8,9 @@
     $query_finalizados = "SELECT COUNT(open_mods.id_Open_mods) as FINALIZADOS FROM open_mods WHERE open_mods.open_mod_estatus = 0";
     $query_abiertos = "SELECT COUNT(open_mods.id_Open_mods) as ABIERTOS FROM open_mods WHERE open_mods.open_mod_estatus = 1";
     $finalizados = $conex->consultaunica($query_finalizados, $con);
-    $finalizados = $finalizados["ABIERTOS"];
+    $finalizados = $finalizados["FINALIZADOS"];
     $abiertos = $conex->consultaunica($query_abiertos, $con);
-    $abiertos = $abiertos["FINALIZADOS"];
+    $abiertos = $abiertos["ABIERTOS"];
     $modulos = $conex->consulta_varios($query_modulos, $con);
     $clases =$conex->consulta_varios($query_clases, $con);
 
