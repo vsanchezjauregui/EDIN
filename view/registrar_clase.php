@@ -237,7 +237,7 @@
           <!--/.col (right) -->
         </div>
         <!-- /.row -->
-        <button type="button" class="btn btn-block btn-primary btn-flat" onclik="registrarClase()" value="">Registrar</button>
+        <button type="button" class="btn btn-block btn-primary btn-flat" onclick='registrarClase()' value="">Registrar</button>
       <!--</form>-->
       <div class="modal fade" id="modal-agregar_alianza"><!--Agregar alianza-->
         <div class="modal-dialog">
@@ -315,7 +315,7 @@
 
 <!-- Page script -->
 <script>
-  window.onbeforeunload = function () {
+  window.onload = function () {
     var data1 = "";
     $.get("../controller/eliminar_temporal.php", { }, function(data) {
       data1 = data;
@@ -339,13 +339,13 @@
       if (modulo == 0) {
         //Valido que el Modulo este selecionado
         alert("Por favor seleccione un modulo");
-      } elseif (fecha=='') {
+      } else if (fecha=='') {
         //Valido la fecha de la clase
         alert("Por favor seleccione la fecha en que se impartio");
-      } elseif (horas == '') {
+      } else if (horas == '') {
         //Valido las horas impartidas
         alert("Por favor indique la cantidad de horas de clases impartidas");
-      } elseif (alumnos.length == 0) {
+      } else if (alumnos.length == 0) {
         //Valido que hayan alumnos asistentes
         alert("Por favor seleccione al menos un beneficiario asistente");
       } else {
