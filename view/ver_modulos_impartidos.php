@@ -307,98 +307,8 @@
           </div>
         </div>
       </div>
+      
       <div class="modal fade" id="modal-ver_clase"><!--Ver clase-->
-        <!-->
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Clase Impartida</h4>
-            </div>
-            <div class="modal-body">
-              <div class="box-body" style="text-align:justify;">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Técnico</label><br>
-                    Técnico en Administración de Empresas
-                  </div>
-                  <div class="form-group">
-                    <label>Módulo</label><br>
-                    Introducción a la Informática
-                  </div>
-                  <div class="form-group">
-                    <label>Fecha en que se impartió</label><br>
-                    01/02/2018
-                  </div>
-                  <div class="form-group">
-                    <label>Horas impartidas</label><br>
-                    4 horas
-                  </div>
-                  <div class="form-group">
-                    <label>Observaciones</label><br>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque ducimus velit, earum quidem, iusto dolorem. Et ipsam totam quas blanditiis, pariatur maxime ipsa iste, doloremque neque doloribus, error. Corrupti, tenetur.
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="box box-solid box-info" id="matriculados">
-                    <div class="box-header">
-                    <h4 class="box-title">Beneficiarios asistentes</h4>
-                    </div>
-                    <div class="box-body">
-                      <table class="table table-striped table-hover">
-                        <tbody>
-                          <tr>
-                            <td>Diego Miranda</td>
-                          </tr>
-                          <tr>
-                            <td>Marvin Herrera</td>
-                          </tr>
-                          <tr>
-                            <td>Rodolfo Delgado</td>
-                          </tr>
-                          <tr>
-                            <td>Michael Lazio</td>
-                          </tr>
-                          <tr>
-                            <td>Richard Calderon</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="box box-solid box-info" id="matriculados">
-                    <div class="box-header">
-                      <h4 class="box-title">Instituciones participantes</h4>
-                    </div>
-
-                    <div class="box-body">
-                      <table class="table table-striped table-hover">
-                        <tbody>
-                          <tr>
-                            <td>Cruz Roja</td>
-                          </tr>
-                          <tr>
-                            <td>Municipalidad de San José</td>
-                          </tr>
-                          <tr>
-                            <td>Fundación Génesis</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-        </!-->
       </div>
       <div class="modal fade" id="modal-cerrar_modulo"><!--Cerrar Modulo-->
         <div class="modal-dialog">
@@ -504,19 +414,22 @@ $('.mailbox-messages input[type="checkbox"]').iCheck({
   checkboxClass: 'icheckbox_flat-blue',
   radioClass: 'iradio_flat-blue'
 });
-    
-</script>
 
-
-  function verclase(id){
+function verclase(id){
     $( function(){
       //alert(id);
       $.get("../controller/cargar_clase.php", { id: id}, function(data) {
         $("#modal-ver_clase").empty();
         $("#modal-ver_clase").html(data);
+        //alert(data);
       });
     })
-  }
+}
+    
+</script>
+
+
+  
 
 </script>
 
