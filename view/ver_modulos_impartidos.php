@@ -284,9 +284,9 @@
           </div> 
         </div>
         <div class="col-md-3">
-          <div class="box box-default collapsed-box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title" data-widget="collapse">Opciones</h3>
+          <div class="box box-default collapsed-box box-solid" >
+            <div class="box-header with-border" data-widget="collapse" style="cursor: pointer">
+              <h3 class="box-title" data-widget="collapse" style="cursor: pointer">Opciones</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
@@ -322,18 +322,19 @@
             <div class="modal-body">
               <div class="form-group">
                 <label>Indique el Módulo que desea Cerrar</label>
-                  <select class="form-control" id="modulo">
+                  <select class="form-control" id="modulo_a_cerrar" onchange="cargarmatriculados()">
                     <?php
+                        echo '<option value"0"></option>';
                         foreach ($modulos as $modulo) {
                           if ($modulo["ESTATUS"] == 1) {
-                            echo '<option value="'.$modulo["id"].'" cheked>.$modulo["MODULO"].</option>';
+                            echo '<option value="'.$modulo["id"].'" cheked>'.$modulo["MODULO"].'</option>';
                           }
                         }
                     ?>
                     <option value="info" cheked>Introduccióna la Informática</option>
                   </select>
               </div>
-              <div class="box-body no-padding" id="tabla_aprobados" name="tabla_aprobados">
+              <div class="box-body no-padding" id="tabla_aprobados" name="tabla_aprobados" style="display: none">
                 <div class="mailbox-controls">
                   <!-- Check all button -->
                   <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
@@ -352,8 +353,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary">Guardar y cerrar otro</button>
-              <button type="button" class="btn btn-primary">Guardar</button>
+              <button type="button" class="btn btn-primary" disabled="true" id="cerrar_modulo">Cerrar Modulo</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -415,6 +415,18 @@ $('.mailbox-messages input[type="checkbox"]').iCheck({
   radioClass: 'iradio_flat-blue'
 });
 
+function cargarmatriculados(){
+    var valor = document.getElementById("modulo_a_cerrar").value;
+    if (valor>0){
+        document.getElementById("cerrar_modulo").removeAttribute("disabled");
+        document.getElementById("tabla_aprobados").setAttribute("style", "display:block")    
+    } else {
+        document.getElementById("cerrar_modulo").setAttribute("disabled", "disabled");
+        document.getElementById("tabla_aprobados").setAttribute("style", "display:none")
+    }
+    
+}
+
 function verclase(id){
     $( function(){
       //alert(id);
@@ -425,6 +437,22 @@ function verclase(id){
       });
     })
 }
+
+    //Enable check and uncheck all functionality
+    $(".checkbox-toggle").click(function () {
+      var clicks = $(this).data('clicks');
+      if (clicks) {
+        //Uncheck all checkboxes
+        $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
+        $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+      } else {
+        //Check all checkboxes
+        $(".mailbox-messages input[type='checkbox']").iCheck("check");
+        $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+      }
+      $(this).data("clicks", !clicks);
+    });
+
     
 </script>
 
