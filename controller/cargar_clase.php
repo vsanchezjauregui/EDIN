@@ -13,7 +13,7 @@ $clase = $conex->consultaunica($query_clase, $con);
 $query_alumnos = "SELECT (SELECT beneficiaries.beneficiary_name FROM beneficiaries WHERE beneficiaries.id_Beneficiaries = bridge_class_benef.id_Beneficiaries) AS NOMBRE, (SELECT beneficiaries.beneficiary_last_name FROM beneficiaries WHERE beneficiaries.id_Beneficiaries = bridge_class_benef.id_Beneficiaries) AS APELLIDO FROM bridge_class_benef WHERE bridge_class_benef.id_classes = $id_clase";
 $alumnos = $conex->consulta_varios($query_alumnos, $con);
 
-$query_alianzas = "SELECT (SELECT alliances.alliance_name FROM alliances WHERE alliances.id_Alliances = bridge_class_alliance.id_alliance) AS ALIANZA FROM bridge_class_alliance WHERE bridge_class_alliance.id_classes = $id_clase";
+$query_alianzas = "SELECT bridge_class_alliance.id_bridge_class_alliance as ID, bridge_class_alliance.alliance_cooperation as COOPERACION,(SELECT alliances.alliance_name FROM alliances WHERE alliances.id_Alliances = bridge_class_alliance.id_alliance) AS ALIANZA FROM bridge_class_alliance WHERE bridge_class_alliance.id_classes = $id_clase";
 $alianzas = $conex->consulta_varios($query_alianzas, $con);
 
 echo '
@@ -79,9 +79,8 @@ foreach($alumnos as $alumno){
                       <table class="table table-striped table-hover">
                         <tbody>';
     foreach ($alianzas as $alianza){
-        echo                '<tr>';
-        echo                    '<td>'.$alianza["ALIANZA"].'</td>';
-        echo                '</tr>';
+        echo                    '<tr><td>'.$alianza["ALIANZA"].'<a data-toggle="collapse" data-parent="#accordion" href="#collapse_part'.$alianza["ID"].'" class="pull-right fa fa-eye"></a></td></tr>';
+        echo                    '<tr id="collapse_part'.$alianza["ID"].'" class="panel-collapse collapse col-sm-12"><td>'.$alianza["COOPERACION"].'</td></tr>';
     }                        
         echo            '</tbody>
                       </table>
