@@ -15,6 +15,7 @@
 
 	    //función que se utilizara al momento de hacer la instancia de la clase
 	    function conectar(){
+	    	//$this->url=mysqli_connect('localhost', 'id6293051_vsanchezjauregui', '21cerotres', 'id6293051_edin_db');
 	        $this->url=mysqli_connect('127.0.0.1', 'root', '', 'edin_db');
 	        return true;
 	    }

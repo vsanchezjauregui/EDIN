@@ -316,8 +316,7 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span></button>
-                <!--------------Verificar ortografia-------------->
-              <h4 class="modal-title">Cerrar Modulo</h4>
+              <h4 class="modal-title">Cerrar Módulo</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
@@ -335,10 +334,11 @@
                   </select>
               </div>
               <div class="box-body no-padding" id="tabla_aprobados" name="tabla_aprobados" style="display: none">
+                <label>Seleccione los beneficiarios que aprobaron el Módulo</label>
                 <div class="mailbox-controls">
                   <!-- Check all button -->
                   <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                  </button> Seleccionar todos
+                  </button><small>   Seleccionar todos</small>
                   <!-- /.pull-right -->
                 </div>
                 <div class="table-responsive mailbox-messages">
@@ -349,11 +349,12 @@
                   <!-- /.table -->
                 </div>
               </div>
+              <br>
               <strong>Advertencia!</strong> Una vez que guarde los cambios, el curso quedará como cerrado y no podrá registrar más clases impartidas en él.
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" disabled="true" id="cerrar_modulo">Cerrar Modulo</button>
+              <button type="button" class="btn btn-primary" disabled="true" id="cerrar_modulo" onclick="cerrarmodulo()">Cerrar Modulo</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -390,6 +391,16 @@
 <!-- DataTables -->
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="plugins/input-mask/jquery.inputmask.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- bootstrap datepicker -->
+<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="plugins/iCheck/icheck.min.js"></script>
 
 <script>
 
@@ -416,10 +427,15 @@ $('.mailbox-messages input[type="checkbox"]').iCheck({
 });
 
 function cargarmatriculados(){
-    var valor = document.getElementById("modulo_a_cerrar").value;
-    if (valor>0){
+    var modulo = document.getElementById("modulo_a_cerrar").value;
+    if (modulo>0){
         document.getElementById("cerrar_modulo").removeAttribute("disabled");
-        document.getElementById("tabla_aprobados").setAttribute("style", "display:block")    
+        document.getElementById("tabla_aprobados").setAttribute("style", "display:block")
+      $.get("../controller/cargar_matriculados.php", { modulo: modulo}, function(data) {
+        $("#aprobados").empty();
+        $("#aprobados").html(data);
+        //alert(data);
+      });    
     } else {
         document.getElementById("cerrar_modulo").setAttribute("disabled", "disabled");
         document.getElementById("tabla_aprobados").setAttribute("style", "display:none")
@@ -433,10 +449,37 @@ function verclase(id){
       $.get("../controller/cargar_clase.php", { id: id}, function(data) {
         $("#modal-ver_clase").empty();
         $("#modal-ver_clase").html(data);
-        //alert(data);
+        
       });
     })
 }
+function cerrarmodulo(){
+    var modulo = document.getElementById("modulo_a_cerrar").value;
+    var aprobados = new Array();
+    $('input[type=checkbox]:checked').each(function() {
+        aprobados.push($(this).val());
+    });
+    
+  /////////////////////////////////////////////////////////////////////////////////////////////
+ ////////////                            Terminar esta function                    ///////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+    alert(aprobados);
+    if (aprobados.length==0){
+      var r = confirm("Esta apunto de cerrar un módulo con ningún beneficiario aprobado. ¿Desea continuar?");
+      if (r){
+        $.get("../controller/cerrar_modulo.php", { modulo: modulo, aprobados: aprobados}, function(data) {
+          alert(data);
+        })
+      }  
+      $( function(){
+        
+        
+      });
+    }
+  }
+
+
 
     //Enable check and uncheck all functionality
     $(".checkbox-toggle").click(function () {
@@ -453,13 +496,29 @@ function verclase(id){
       $(this).data("clicks", !clicks);
     });
 
+    $(".mailbox-star").click(function (e) {
+      e.preventDefault();
+      //detect type
+      var $this = $(this).find("a > i");
+      var glyph = $this.hasClass("glyphicon");
+      var fa = $this.hasClass("fa");
+
+      //Switch states
+      if (glyph) {
+        $this.toggleClass("glyphicon-star");
+        $this.toggleClass("glyphicon-star-empty");
+      }
+
+      if (fa) {
+        $this.toggleClass("fa-star");
+        $this.toggleClass("fa-star-o");
+      }
+    });
+
     
 </script>
 
 
-  
-
-</script>
 
 
 </body>

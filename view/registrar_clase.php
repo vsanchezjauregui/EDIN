@@ -1,18 +1,5 @@
 <?php  
 
-  /*if(isset($_GET['variable'])) {
-    switch ($_GET['variable']) {
-      case 1:
-        echo '<script language="javascript">alert("Por favor seleccione algún módulo");</script>';
-        break;
-      case 2:
-        echo '<script language="javascript">alert("Por favor indique los beneficiarios asistentes");</script>';
-        break;
-      case 3:
-        echo '<script language="javascript">alert("Clase registrada");</script>';
-        break;
-      }
-  }*/
   require_once '../model/conexion.php';
   $conex =  new ConexionMySQL();
   $resulta = $conex->conectar();
@@ -430,9 +417,6 @@
       radioClass: 'iradio_flat-blue'
     });
 
-    $(".elim").click(function(){
-      alert("prueba");
-    });
 
     //Enable check and uncheck all functionality
     $(".checkbox-toggle").click(function () {
