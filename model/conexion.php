@@ -3,10 +3,10 @@
 	class ConexionMySQL {
 		
 	    //declaración de variables
-	    public $host = '127.0.0.1'; // para conectarnos a localhost o el ip del servidor de postgres
-	    public $db = 'EDIN_DB'; // seleccionar la base de datos que vamos a utilizar
-	    public $user = 'root'; // seleccionar el usuario con el que nos vamos a conectar
-	    public $pass = ''; // la clave del usuario
+	    public $host = 'localhost'; // para conectarnos a localhost o el ip del servidor de postgres
+	    public $db = 'id6293051_edin_db'; // seleccionar la base de datos que vamos a utilizar
+	    public $user = 'id6293051_vsanchezjauregui'; // seleccionar el usuario con el que nos vamos a conectar
+	    public $pass = '21cerotres'; // la clave del usuario
 	    public $url; //dirección de la conexión que se usara para destruirla mas adelante
 	    public $resultado;
         //creación del constructor
@@ -15,7 +15,7 @@
 
 	    //función que se utilizara al momento de hacer la instancia de la clase
 	    function conectar(){
-	        $this->url=mysqli_connect('127.0.0.1', 'root', '', "EDIN_DB");
+	        $this->url=mysqli_connect('127.0.0.1', 'root', '', 'edin_db');
 	        return true;
 	    }
 	    function usarConexion(){

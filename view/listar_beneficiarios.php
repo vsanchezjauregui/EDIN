@@ -1,5 +1,5 @@
 <?php  
-    $querygeneral = "SELECT *, (SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries) AS HORAS  from Beneficiaries";
+    $querygeneral = "SELECT *, (SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries) AS HORAS  from beneficiaries";
     if (isset($_GET['fechaMin'])) {
       $querygeneral .= " WHERE beneficiary_birth >='".$_GET['fechaMin']."' and beneficiary_birth <= '".$_GET['fechaMax']."' and beneficiary_condition_years >= ".$_GET["indigenciaMin"]." and beneficiary_condition_years <= ".$_GET["indigenciaMax"];
       if (!$_GET['horasMin']==0) {
@@ -62,7 +62,6 @@
       }
 
     }
-    //echo $querygeneral;
     require_once '../model/conexion.php';
     $conex =  new ConexionMySQL();
     $resulta = $conex->conectar();
@@ -77,7 +76,7 @@
     $cantones = $conex->consulta_varios($query_cantones, $con);
     $query_distritos = "SELECT DISTINCT beneficiaries.beneficiary_district FROM beneficiaries WHERE beneficiaries.beneficiary_district is not null";
     $distritos = $conex->consulta_varios($query_distritos, $con);
-    $query_formacion_max = "SELECT    MAX((SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries)) AS formacionmaxima from Beneficiaries";
+    $query_formacion_max = "SELECT    MAX((SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries)) AS formacionmaxima from beneficiaries";
     $max_formacion = $conex->consultaunica($query_formacion_max, $con);
     $query_edad_min = "Select MAX(beneficiaries.beneficiary_birth) as nacimientominima FROM beneficiaries";
     $min_nacimiento = $conex->consultaunica($query_edad_min, $con);
@@ -401,7 +400,7 @@
                         <label>Horas de formación recibidas</label><br>
                         <div class="col-sm-2 no-margin no-padding">0 horas</div>
                         <div class="col-sm-7">
-                        <input name="horas" id="horas" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="<?php echo $max_formacion['formacionmaxima'] ?>" data-slider-step="1" data-slider-value="[0,<?php echo $max_formacion['formacionmaxima'] ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+                        <input name="horas" id="horas" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="<?php echo "0" /*$max_formacion['formacionmaxima']*/ ?>" data-slider-step="1" data-slider-value="[0,<?php echo /*$max_formacion['formacionmaxima']*/"0" ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
                         </div>
                         <div class="col-sm-3 no-margin no-padding"><?php echo $max_formacion['formacionmaxima'] ?> horas</div>
                       </div>

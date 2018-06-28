@@ -8,9 +8,9 @@
     $query_finalizados = "SELECT COUNT(open_mods.id_Open_mods) as FINALIZADOS FROM open_mods WHERE open_mods.open_mod_estatus = 0";
     $query_abiertos = "SELECT COUNT(open_mods.id_Open_mods) as ABIERTOS FROM open_mods WHERE open_mods.open_mod_estatus = 1";
     $finalizados = $conex->consultaunica($query_finalizados, $con);
-    $finalizados = $finalizados["ABIERTOS"];
+    $finalizados = $finalizados["FINALIZADOS"];
     $abiertos = $conex->consultaunica($query_abiertos, $con);
-    $abiertos = $abiertos["FINALIZADOS"];
+    $abiertos = $abiertos["ABIERTOS"];
     $modulos = $conex->consulta_varios($query_modulos, $con);
     $clases =$conex->consulta_varios($query_clases, $con);
 
@@ -284,9 +284,9 @@
           </div> 
         </div>
         <div class="col-md-3">
-          <div class="box box-default collapsed-box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title" data-widget="collapse">Opciones</h3>
+          <div class="box box-default collapsed-box box-solid" >
+            <div class="box-header with-border" data-widget="collapse" style="cursor: pointer">
+              <h3 class="box-title" data-widget="collapse" style="cursor: pointer">Opciones</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
@@ -307,98 +307,8 @@
           </div>
         </div>
       </div>
+      
       <div class="modal fade" id="modal-ver_clase"><!--Ver clase-->
-        <!-->
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Clase Impartida</h4>
-            </div>
-            <div class="modal-body">
-              <div class="box-body" style="text-align:justify;">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Técnico</label><br>
-                    Técnico en Administración de Empresas
-                  </div>
-                  <div class="form-group">
-                    <label>Módulo</label><br>
-                    Introducción a la Informática
-                  </div>
-                  <div class="form-group">
-                    <label>Fecha en que se impartió</label><br>
-                    01/02/2018
-                  </div>
-                  <div class="form-group">
-                    <label>Horas impartidas</label><br>
-                    4 horas
-                  </div>
-                  <div class="form-group">
-                    <label>Observaciones</label><br>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque ducimus velit, earum quidem, iusto dolorem. Et ipsam totam quas blanditiis, pariatur maxime ipsa iste, doloremque neque doloribus, error. Corrupti, tenetur.
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="box box-solid box-info" id="matriculados">
-                    <div class="box-header">
-                    <h4 class="box-title">Beneficiarios asistentes</h4>
-                    </div>
-                    <div class="box-body">
-                      <table class="table table-striped table-hover">
-                        <tbody>
-                          <tr>
-                            <td>Diego Miranda</td>
-                          </tr>
-                          <tr>
-                            <td>Marvin Herrera</td>
-                          </tr>
-                          <tr>
-                            <td>Rodolfo Delgado</td>
-                          </tr>
-                          <tr>
-                            <td>Michael Lazio</td>
-                          </tr>
-                          <tr>
-                            <td>Richard Calderon</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="box box-solid box-info" id="matriculados">
-                    <div class="box-header">
-                      <h4 class="box-title">Instituciones participantes</h4>
-                    </div>
-
-                    <div class="box-body">
-                      <table class="table table-striped table-hover">
-                        <tbody>
-                          <tr>
-                            <td>Cruz Roja</td>
-                          </tr>
-                          <tr>
-                            <td>Municipalidad de San José</td>
-                          </tr>
-                          <tr>
-                            <td>Fundación Génesis</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-        </!-->
       </div>
       <div class="modal fade" id="modal-cerrar_modulo"><!--Cerrar Modulo-->
         <div class="modal-dialog">
@@ -412,18 +322,19 @@
             <div class="modal-body">
               <div class="form-group">
                 <label>Indique el Módulo que desea Cerrar</label>
-                  <select class="form-control" id="modulo">
+                  <select class="form-control" id="modulo_a_cerrar" onchange="cargarmatriculados()">
                     <?php
+                        echo '<option value"0"></option>';
                         foreach ($modulos as $modulo) {
                           if ($modulo["ESTATUS"] == 1) {
-                            echo '<option value="'.$modulo["id"].'" cheked>.$modulo["MODULO"].</option>';
+                            echo '<option value="'.$modulo["id"].'" cheked>'.$modulo["MODULO"].'</option>';
                           }
                         }
                     ?>
                     <option value="info" cheked>Introduccióna la Informática</option>
                   </select>
               </div>
-              <div class="box-body no-padding" id="tabla_aprobados" name="tabla_aprobados">
+              <div class="box-body no-padding" id="tabla_aprobados" name="tabla_aprobados" style="display: none">
                 <div class="mailbox-controls">
                   <!-- Check all button -->
                   <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
@@ -442,8 +353,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary">Guardar y cerrar otro</button>
-              <button type="button" class="btn btn-primary">Guardar</button>
+              <button type="button" class="btn btn-primary" disabled="true" id="cerrar_modulo">Cerrar Modulo</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -504,19 +414,50 @@ $('.mailbox-messages input[type="checkbox"]').iCheck({
   checkboxClass: 'icheckbox_flat-blue',
   radioClass: 'iradio_flat-blue'
 });
+
+function cargarmatriculados(){
+    var valor = document.getElementById("modulo_a_cerrar").value;
+    if (valor>0){
+        document.getElementById("cerrar_modulo").removeAttribute("disabled");
+        document.getElementById("tabla_aprobados").setAttribute("style", "display:block")    
+    } else {
+        document.getElementById("cerrar_modulo").setAttribute("disabled", "disabled");
+        document.getElementById("tabla_aprobados").setAttribute("style", "display:none")
+    }
     
-</script>
+}
 
-
-  function verclase(id){
+function verclase(id){
     $( function(){
       //alert(id);
       $.get("../controller/cargar_clase.php", { id: id}, function(data) {
         $("#modal-ver_clase").empty();
         $("#modal-ver_clase").html(data);
+        //alert(data);
       });
     })
-  }
+}
+
+    //Enable check and uncheck all functionality
+    $(".checkbox-toggle").click(function () {
+      var clicks = $(this).data('clicks');
+      if (clicks) {
+        //Uncheck all checkboxes
+        $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
+        $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+      } else {
+        //Check all checkboxes
+        $(".mailbox-messages input[type='checkbox']").iCheck("check");
+        $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+      }
+      $(this).data("clicks", !clicks);
+    });
+
+    
+</script>
+
+
+  
 
 </script>
 

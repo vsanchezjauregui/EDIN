@@ -58,9 +58,8 @@ if ($insertar){
 	//averiguo si hay participaciones
 	$query_buscar_participaciones = "SHOW TABLES LIKE 'temp_participaciones'";
 	$hayparti = $conex->consultaunica($query_buscar_participaciones, $con);
-
 	if (!is_null($hayparti)) {
-		//si hay participaciones
+		
 		$query_participaciones = "SELECT * FROM temp_participaciones";
 		$participaciones = $conex->consulta_varios($query_participaciones, $con);
 		$query_insertar_participaciones = "INSERT into bridge_class_alliance (bridge_class_alliance.id_classes, bridge_class_alliance.id_alliance, bridge_class_alliance.alliance_cooperation) VALUES ";
@@ -70,8 +69,7 @@ if ($insertar){
 		//inserto las participaciones en la tabla correspondiente
 		$query_insertar_participaciones = substr($query_insertar_participaciones,0,-1);
 		//echo $query_insertar_participaciones."<br><br>";
-		$insertar = mysqli_query($con,$query_insertar_participacion);
-		
+		$insertar = mysqli_query($con,$query_insertar_participaciones);
 		if (!$insertar) {
 			$error = 3;
 		}

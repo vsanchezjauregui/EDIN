@@ -351,6 +351,7 @@
       } else {
         //Si paso todas las validaciones, Ejecuto el PHP que va a almacenar la clase
          $.get("../controller/crear_clase.php", { modulo: modulo, fecha : fecha, horas : horas, alumnos: alumnos, observaciones: observaciones}, function(data) {
+         //alert(data);
          //Muestro una alerta con el mensaje de exito o error
          alert(data.split('=')[1]);
          //Recargo la pagina
