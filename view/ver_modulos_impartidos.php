@@ -13,7 +13,6 @@
     $abiertos = $abiertos["ABIERTOS"];
     $modulos = $conex->consulta_varios($query_modulos, $con);
     $clases =$conex->consulta_varios($query_clases, $con);
-
     $conex->destruir();
     
 ?>
@@ -24,7 +23,7 @@
 
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"> 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>EDIN | Ver Módulos Impartidos</title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -40,7 +39,7 @@
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-
+ 
   <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
   <!-- Google Font -->
   <link rel="stylesheet"
@@ -55,10 +54,9 @@
       display: block;
       z-index: 1;
     }
-
     .example-modal .modal {
       background: transparent !important;
-    }
+    }  
   </style>
 </head>
 
@@ -154,7 +152,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="panel">
-                <div class="col-sm-12"><!--header-->
+                <!--<div class="col-sm-12">
                   <div class="col-sm-4">
                     <b>Módulo</b>
                   </div>
@@ -171,60 +169,95 @@
                     <b>Clases</b>
                   </div>
                 </div>            
-                <br><br>  
-                <div class="col-md-12">
-                <?php
-                  if ($finalizados == 0) {
-                    echo "No hay módulos completados";
-                  }else{
-                    foreach ($modulos as $modulo) {
-                      if ($modulo["ESTATUS"] == 0) {
-                        $horas_modulo = 0;
-                        $clases_modulo = 0;
-                        foreach ($clases as $clase) {
-                          if ($clase["id_Open_mods"]==$modulo["id"]) {
-                            $horas_modulo += $clase["class_time"];
-                            $clases_modulo += 1;
+                <br><br>-->
+                <table class="table table-hover">
+                    
+                    <tbody id="tabla_finalizados">
+                        <thead>
+                        <tr>
+                            <th>Módulo</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                            <th>Horas</th>
+                            <th>Clases</th>
+                        </tr>
+                    </thead>
+                        <?php
+                          if ($finalizados == 0) {
+                            echo "<tr><td>No hay módulos finalizados</td></tr>";
+                          } else {
+                            foreach ($modulos as $modulo) {
+                              if ($modulo["ESTATUS"] == 0) {
+                                $horas_modulo = 0;
+                                $clases_modulo = 0;
+                                foreach ($clases as $clase) {
+                                  if ($clase["id_Open_mods"]==$modulo["id"]) {
+                                    $horas_modulo += $clase["class_time"];
+                                    $clases_modulo += 1;
+                                  }
+                                }
+                                echo    '<tr>
+                                            <td>'.$modulo["MODULO"].'</td>
+                                            <td>'.$modulo["FECHA_FROM"].'</td>
+                                            <td>'.$modulo["FECHA_TO"].'</td>
+                                            <td>'.$horas_modulo.' horas</td>
+                                            <td><a data-toggle="collapse" data-parent="#accordion" href="#collapse'.$modulo["id"].'"><b>'.$clases_modulo.' clases</b></a></td>
+                                        </tr>
+                                        ';
+                                
+                                foreach ($clases as $clase) {
+                                  if ($clase["id_Open_mods"]==$modulo["id"]) {
+                                    echo    '<tr id="collapse'.$modulo["id"].'" class="panel-collapse collapse" style="text-align:right">
+                                ';
+                                    echo    '<td colspan="5">'.$clase["class_date"].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '.$clase["class_time"].' horas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">ver clase</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>';  
+                                    echo    '</tr>
+                                ';
+                                    /*echo '  <div class="col-sm-12">
+                                                <div class="col-sm-2 pull-right">
+                                                    <a  data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">
+                                                        ver clase
+                                                    </a>
+                                                </div>
+                                            <div class="col-sm-2 pull-right">
+                                                '.$clase["class_time"].' horas
+                                            </div>
+                                            <div class="col-sm-2 pull-right">
+                                                '.$clase["class_date"].'
+                                            </div>
+                                        </div>';*/
+                                  }
+                                }            
+                                
+                            }/*
+                                
+                                        <div id="collapse'.$modulo["id"].'" class="panel-collapse collapse col-sm-12">';
+                                foreach ($clases as $clase) {
+                                  if ($clase["id_Open_mods"]==$modulo["id"]) {
+                                    echo '  <div class="col-sm-12">
+                                                <div class="col-sm-2 pull-right">
+                                                    <a  data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">
+                                                        ver clase
+                                                    </a>
+                                                </div>
+                                            <div class="col-sm-2 pull-right">
+                                                '.$clase["class_time"].' horas
+                                            </div>
+                                            <div class="col-sm-2 pull-right">
+                                                '.$clase["class_date"].'
+                                            </div>
+                                        </div>';
+                                  }
+                                }
+                            echo "  </div>
+                                </div>";
+                              }*/
+                            }
                           }
-                        }
-
-                        echo '  <div id="'.$modulo["id"].'">
-                                  <div class="col-sm-4">
-                                    <b>'.$modulo["MODULO"].'</b>
-                                  </div>
-                                <div class="col-sm-2">
-                                  <b>'.$modulo["FECHA_FROM"].'</b>
-                                </div>
-                                <div class="col-sm-2">
-                                  <b>'.$modulo["FECHA_TO"].'</b>
-                                </div>
-                                <div class="col-sm-2">
-                                  <b>'.$horas_modulo.' horas</b>
-                                </div>
-                                <div class="col-sm-2">
-                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse'.$modulo["id"].'"><b>'.$clases_modulo.' clases</b></a>
-                                </div>
-                                <div id="collapse'.$modulo["id"].'" class="panel-collapse collapse col-sm-12">';
-                        foreach ($clases as $clase) {
-                          if ($clase["id_Open_mods"]==$modulo["id"]) {
-                            echo '  <div class="col-sm-12>"
-                                      <div class="col-sm-2 pull-right">
-                                        <a data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">ver clase</a>
-                                      </div>
-                                      <div class="col-sm-2 pull-right">
-                                        '.$clase["class_time"].' horas
-                                      </div>
-                                      <div class="col-sm-2 pull-right">
-                                        '.$clase["class_date"].'
-                                      </div>
-                                    </div>';
-                          }
-                        }
-                      }
-                    }
-                  }
-                ?>
-                </div>
+                        ?>        
+                    </tbody>
+                </table>
+                
+                <!--</div>-->
               </div>
             </div>
           </div>
@@ -265,7 +298,6 @@
                             $clases_modulo += 1;
                           }
                         }
-
                         echo '<div id="'.$modulo["id"].'"><div class="col-sm-5"><b>'.$modulo["MODULO"].'</b></div><div class="col-sm-3"><b>'.$modulo["FECHA_FROM"].'</b></div><div class="col-sm-2"><b>'.$horas_modulo.' horas</b></div><div class="col-sm-2"><a data-toggle="collapse" data-parent="#accordion" href="#collapse'.$modulo["id"].'"><b>'.$clases_modulo.' clases</b></a></div><div id="collapse'.$modulo["id"].'" class="panel-collapse collapse col-sm-12">';
                         foreach ($clases as $clase) {
                           if ($clase["id_Open_mods"]==$modulo["id"]) {
@@ -354,7 +386,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" disabled="true" id="cerrar_modulo" onclick="cerrarmodulo()">Cerrar Modulo</button>
+              <button type="button" class="btn btn-primary" disabled="true" id="cerrar_modulo" onclick="validarCerrarModulo()">Cerrar Modulo</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -453,29 +485,30 @@ function verclase(id){
       });
     })
 }
-function cerrarmodulo(){
+function cerrarModulo(modulo, aprobados){
+    $.get("../controller/cerrar_modulo.php", { modulo: modulo, aprobados: aprobados}, function(data) {
+      alert(data);
+    })
+    $.get("../model/cargar_finalizadios.php", {}, function(data) {
+        $("#tabla_finalizados").empty();
+        $("#tabla_finalizados").html(data);
+    });
+}
+
+function validarCerrarModulo(){
     var modulo = document.getElementById("modulo_a_cerrar").value;
     var aprobados = new Array();
     $('input[type=checkbox]:checked').each(function() {
         aprobados.push($(this).val());
     });
     
-  /////////////////////////////////////////////////////////////////////////////////////////////
- ////////////                            Terminar esta function                    ///////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-    alert(aprobados);
     if (aprobados.length==0){
       var r = confirm("Esta apunto de cerrar un módulo con ningún beneficiario aprobado. ¿Desea continuar?");
       if (r){
-        $.get("../controller/cerrar_modulo.php", { modulo: modulo, aprobados: aprobados}, function(data) {
-          alert(data);
-        })
-      }  
-      $( function(){
-        
-        
-      });
+        cerrarModulo(modulo,aprobados)
+      } 
+    } else {
+      cerrarModulo(modulo,aprobados)
     }
   }
 

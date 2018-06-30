@@ -5,7 +5,12 @@ $resulta = $conex->conectar();
 $con = $conex->usarConexion();
 
 $id_modulo = $_GET['modulo'];
-$aprobados = $_GET['aprobados'];
+if (isset($_GET['aprobados'])){
+    $aprobados = $_GET['aprobados'];    
+} else {
+    $aprobados = [];
+}
+
 $perdidos = [];
 
 //Busco los matriculados
@@ -20,15 +25,35 @@ foreach ($matriculados as $matriculado) {
     		$perdido = false;
     	}
     }
-    if ($ganado) {
+    if ($perdido) {
     	array_push($perdidos, $matriculado["ID"]);
     }
 } 
 
-var_dump($perdidos);
+//Determino la fecha en que se esta cerrando el modulo
+$hoy = new DateTime();
+$hoy =  $hoy->format('Y-m-d');
 
 
+//Cierro el modulo
+$query_cerrar_modulo = "UPDATE open_mods set open_mods.open_mod_estatus = 0, open_mods.open_mode_date_to = '$hoy' WHERE open_mods.id_Open_mods = $id_modulo";
+$cerrar_modulo = mysqli_query($con,$query_cerrar_modulo);
 
+//Cambio el estatus a los aprobados
+if (sizeof($aprobados)>0){
+    foreach($aprobados as $aprobado){
+        $query_ganado = "UPDATE bridge_benef_openmods SET bridge_benef_openmods.status_benef = 'ganado' WHERE bridge_benef_openmods.id_beneficiary = $aprobado AND bridge_benef_openmods.id_open_mod = $id_modulo;";
+        $cambiar_estatus_alumno = mysqli_query($con,$query_ganado);
+    }
+}
+if (sizeof($perdidos)>0){
+    foreach($perdidos as $perdido){
+        $query_perdido = "UPDATE bridge_benef_openmods SET bridge_benef_openmods.status_benef = 'perdido' WHERE bridge_benef_openmods.id_beneficiary = $perdido AND bridge_benef_openmods.id_open_mod = $id_modulo;";
+        $cambiar_estatus_alumno = mysqli_query($con,$query_perdido);
+    }
+}
+
+echo "Se ha cerrado con exito"
 
 
 ?>
