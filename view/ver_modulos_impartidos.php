@@ -147,45 +147,84 @@
         <div class="col-md-9"><!--Modulos en curso y finalizados-->
           <div class="box box-primary box-solid">
             <div class="box-header">
+              <h4 class="box-title">Módulos en curso</h4>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="panel" id="tabla_cursando">
+              <?php
+                          if ($abiertos == 0) {
+                            echo "No hay módulos abiertos";
+                          } else {
+                            echo '  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                            <th>Módulo</th>
+                                            <th>Desde</th>
+                                            <th>Horas</th>
+                                            <th>Clases</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody >';
+                            foreach ($modulos as $modulo) {
+                              if ($modulo["ESTATUS"] == 1) {
+                                $horas_modulo = 0;
+                                $clases_modulo = 0;
+                                foreach ($clases as $clase) {
+                                  if ($clase["id_Open_mods"]==$modulo["id"]) {
+                                    $horas_modulo += $clase["class_time"];
+                                    $clases_modulo += 1;
+                                  }
+                                }
+                            echo        '<tr>
+                                            <td>'.$modulo["MODULO"].'</td>
+                                            <td>'.$modulo["FECHA_FROM"].'</td>
+                                            <td>'.$horas_modulo.' horas</td>
+                                            <td><a data-toggle="collapse" data-parent="#accordion" href="#collapse'.$modulo["id"].'"><b>'.$clases_modulo.' clases</b></a></td>
+                                        </tr>
+                                        ';
+                                echo    '<tr id="collapse'.$modulo["id"].'" class="panel-collapse collapse" style="text-align:right">
+                                          <td colspan="5">';
+                                foreach ($clases as $clase) {
+                                  if ($clase["id_Open_mods"]==$modulo["id"]) {
+                                    echo    $clase["class_date"].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '.$clase["class_time"].' horas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">ver clase</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>';  
+
+                                  }
+                                }            
+                                echo    ' </td>
+                                        </tr>';
+                              }
+                            }
+                                echo '</tbody>
+                                    </table>
+                                    ';
+                          }
+              ?>
+              </div>
+            </div>
+          </div> 
+          <div class="box box-primary box-solid">
+            <div class="box-header">
               <h4 class="box-title">Módulos Finalizados</h4>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div class="panel">
-                <!--<div class="col-sm-12">
-                  <div class="col-sm-4">
-                    <b>Módulo</b>
-                  </div>
-                  <div class="col-sm-2">
-                    <b>Desde</b>
-                  </div>
-                  <div class="col-sm-2">
-                    <b>Hasta</b>
-                  </div>
-                  <div class="col-sm-2">
-                    <b>Horas</b>
-                  </div>
-                  <div class="col-sm-2">
-                    <b>Clases</b>
-                  </div>
-                </div>            
-                <br><br>-->
-                <table class="table table-hover">
-                    
-                    <tbody id="tabla_finalizados">
-                        <thead>
-                        <tr>
-                            <th>Módulo</th>
-                            <th>Desde</th>
-                            <th>Hasta</th>
-                            <th>Horas</th>
-                            <th>Clases</th>
-                        </tr>
-                    </thead>
+              <div class="panel" id="tabla_finalizados">
                         <?php
                           if ($finalizados == 0) {
-                            echo "<tr><td>No hay módulos finalizados</td></tr>";
+                            echo "No hay módulos finalizados";
                           } else {
+                            echo '  <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                            <th>Módulo</th>
+                                            <th>Desde</th>
+                                            <th>Hasta</th>
+                                            <th>Horas</th>
+                                            <th>Clases</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody >';
                             foreach ($modulos as $modulo) {
                               if ($modulo["ESTATUS"] == 0) {
                                 $horas_modulo = 0;
@@ -196,7 +235,7 @@
                                     $clases_modulo += 1;
                                   }
                                 }
-                                echo    '<tr>
+                            echo        '<tr>
                                             <td>'.$modulo["MODULO"].'</td>
                                             <td>'.$modulo["FECHA_FROM"].'</td>
                                             <td>'.$modulo["FECHA_TO"].'</td>
@@ -204,116 +243,27 @@
                                             <td><a data-toggle="collapse" data-parent="#accordion" href="#collapse'.$modulo["id"].'"><b>'.$clases_modulo.' clases</b></a></td>
                                         </tr>
                                         ';
-                                
+                                echo    '<tr id="collapse'.$modulo["id"].'" class="panel-collapse collapse" style="text-align:right">
+                                          <td colspan="5">';
                                 foreach ($clases as $clase) {
                                   if ($clase["id_Open_mods"]==$modulo["id"]) {
-                                    echo    '<tr id="collapse'.$modulo["id"].'" class="panel-collapse collapse" style="text-align:right">
-                                ';
-                                    echo    '<td colspan="5">'.$clase["class_date"].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '.$clase["class_time"].' horas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">ver clase</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>';  
-                                    echo    '</tr>
-                                ';
-                                    /*echo '  <div class="col-sm-12">
-                                                <div class="col-sm-2 pull-right">
-                                                    <a  data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">
-                                                        ver clase
-                                                    </a>
-                                                </div>
-                                            <div class="col-sm-2 pull-right">
-                                                '.$clase["class_time"].' horas
-                                            </div>
-                                            <div class="col-sm-2 pull-right">
-                                                '.$clase["class_date"].'
-                                            </div>
-                                        </div>';*/
+                                    echo    $clase["class_date"].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '.$clase["class_time"].' horas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">ver clase</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>';  
+
                                   }
                                 }            
-                                
-                            }/*
-                                
-                                        <div id="collapse'.$modulo["id"].'" class="panel-collapse collapse col-sm-12">';
-                                foreach ($clases as $clase) {
-                                  if ($clase["id_Open_mods"]==$modulo["id"]) {
-                                    echo '  <div class="col-sm-12">
-                                                <div class="col-sm-2 pull-right">
-                                                    <a  data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">
-                                                        ver clase
-                                                    </a>
-                                                </div>
-                                            <div class="col-sm-2 pull-right">
-                                                '.$clase["class_time"].' horas
-                                            </div>
-                                            <div class="col-sm-2 pull-right">
-                                                '.$clase["class_date"].'
-                                            </div>
-                                        </div>';
-                                  }
-                                }
-                            echo "  </div>
-                                </div>";
-                              }*/
+                                echo    ' </td>
+                                        </tr>';
+                              }
                             }
+                                echo '</tbody>
+                                    </table>
+                                    ';
                           }
                         ?>        
-                    </tbody>
-                </table>
-                
-                <!--</div>-->
               </div>
             </div>
           </div>
-          <div class="box box-primary box-solid">
-            <div class="box-header">
-              <h4 class="box-title">Módulos en curso</h4>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="panel">
-                <div class="col-sm-12"><!--header-->
-                  <div class="col-sm-5">
-                    <b>Módulo</b>
-                  </div>
-                  <div class="col-sm-3">
-                    <b>Desde</b>
-                  </div>
-                  <div class="col-sm-2">
-                    <b>Horas</b>
-                  </div>
-                  <div class="col-sm-2">
-                    <b>Clases</b>
-                  </div>
-                </div>            
-                <br><br>  
-                <div class="col-md-12">
-                <?php
-                  if ($abiertos == 0) {
-                    echo "No hay módulos en curso";
-                  }else{
-                    foreach ($modulos as $modulo) {
-                      if ($modulo["ESTATUS"] == 1) {
-                        $horas_modulo = 0;
-                        $clases_modulo = 0;
-                        foreach ($clases as $clase) {
-                          if ($clase["id_Open_mods"]==$modulo["id"]) {
-                            $horas_modulo += $clase["class_time"];
-                            $clases_modulo += 1;
-                          }
-                        }
-                        echo '<div id="'.$modulo["id"].'"><div class="col-sm-5"><b>'.$modulo["MODULO"].'</b></div><div class="col-sm-3"><b>'.$modulo["FECHA_FROM"].'</b></div><div class="col-sm-2"><b>'.$horas_modulo.' horas</b></div><div class="col-sm-2"><a data-toggle="collapse" data-parent="#accordion" href="#collapse'.$modulo["id"].'"><b>'.$clases_modulo.' clases</b></a></div><div id="collapse'.$modulo["id"].'" class="panel-collapse collapse col-sm-12">';
-                        foreach ($clases as $clase) {
-                          if ($clase["id_Open_mods"]==$modulo["id"]) {
-                            echo '<div class="col-sm-12"><div class="col-sm-2 pull-right"><a  data-toggle="modal" onclick="verclase('.$clase["id_Classes"].')" href="#modal-ver_clase">ver clase</a></div><div class="col-sm-2 pull-right">'.$clase["class_time"].' horas</div><div class="col-sm-2 pull-right">'.$clase["class_date"].'</div></div>';
-                          }
-                        }
-                        echo "</div></div>";
-                      }
-                    }
-                  }
-                ?>
 
-                </div>
-              </div>
-            </div>
-          </div> 
         </div>
         <div class="col-md-3">
           <div class="box box-default collapsed-box box-solid" >
@@ -342,6 +292,7 @@
       
       <div class="modal fade" id="modal-ver_clase"><!--Ver clase-->
       </div>
+
       <div class="modal fade" id="modal-cerrar_modulo"><!--Cerrar Modulo-->
         <div class="modal-dialog">
           <div class="modal-content">
@@ -362,7 +313,6 @@
                           }
                         }
                     ?>
-                    <option value="info" cheked>Introduccióna la Informática</option>
                   </select>
               </div>
               <div class="box-body no-padding" id="tabla_aprobados" name="tabla_aprobados" style="display: none">
@@ -464,7 +414,7 @@ function cargarmatriculados(){
         document.getElementById("cerrar_modulo").removeAttribute("disabled");
         document.getElementById("tabla_aprobados").setAttribute("style", "display:block")
       $.get("../controller/cargar_matriculados.php", { modulo: modulo}, function(data) {
-        $("#aprobados").empty();
+        $("#aprobados").val('');
         $("#aprobados").html(data);
         //alert(data);
       });    
@@ -487,11 +437,17 @@ function verclase(id){
 }
 function cerrarModulo(modulo, aprobados){
     $.get("../controller/cerrar_modulo.php", { modulo: modulo, aprobados: aprobados}, function(data) {
+      $("#modulo_a_cerrar").find('option[value="'+modulo+'"]').remove();
+      document.getElementById("tabla_aprobados").setAttribute("style", "display:none")
       alert(data);
     })
     $.get("../model/cargar_finalizadios.php", {}, function(data) {
-        $("#tabla_finalizados").empty();
-        $("#tabla_finalizados").html(data);
+      $("#tabla_finalizados").empty();
+      $("#tabla_finalizados").html(data);
+    });
+    $.get("../model/cargar_abiertos.php", {}, function(data) {
+      $("#tabla_cursando").empty();
+      $("#tabla_cursando").html(data);
     });
 }
 

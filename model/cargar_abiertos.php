@@ -30,7 +30,7 @@
               </thead>
               <tbody >';
     foreach ($modulos as $modulo) {
-      if ($modulo["ESTATUS"] == 0) {
+      if ($modulo["ESTATUS"] == 1) {
         $horas_modulo = 0;
         $clases_modulo = 0;
         foreach ($clases as $clase) {
@@ -42,7 +42,6 @@
     echo        '<tr>
                     <td>'.$modulo["MODULO"].'</td>
                     <td>'.$modulo["FECHA_FROM"].'</td>
-                    <td>'.$modulo["FECHA_TO"].'</td>
                     <td>'.$horas_modulo.' horas</td>
                     <td><a data-toggle="collapse" data-parent="#accordion" href="#collapse'.$modulo["id"].'"><b>'.$clases_modulo.' clases</b></a></td>
                 </tr>
