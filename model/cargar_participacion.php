@@ -4,11 +4,12 @@ $conex =  new ConexionMySQL();
 $resulta = $conex->conectar();
 $con = $conex->usarConexion();
 
+$clase = $_GET['clase'];
 $alianza = $_GET['id'];
 
 
 
-$query = "SELECT *,(SELECT alliances.alliance_name FROM alliances WHERE alliances.id_Alliances = temp_participaciones.id_Alianza) as ALIANZA FROM temp_participaciones WHERE temp_participaciones.id_Alianza = $alianza";
+$query = "SELECT bridge_class_alliance.alliance_cooperation AS PARTICIPACION, (SELECT alliances.alliance_name FROM alliances WHERE alliances.id_Alliances = bridge_class_alliance.id_alliance) AS ALIANZA FROM bridge_class_alliance WHERE (bridge_class_alliance.id_alliance = $alianza) AND (bridge_class_alliance.id_classes = $clase)";
 $participacion = $conex->consultaunica($query, $con);
 
 
@@ -21,7 +22,7 @@ $participacion = $conex->consultaunica($query, $con);
 		    		</div>
 		    		<div class="modal-body">
 		            	<div class="box-body" style="text-align:justify;">
-		                	'.$participacion["descripcion"].'
+		                	'.$participacion["PARTICIPACION"].'
 		              	</div>
 		            </div>
 		            <div class="modal-footer">

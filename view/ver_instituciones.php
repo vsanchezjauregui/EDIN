@@ -1,30 +1,10 @@
-<!--INSERT INTO alliances (alliances.alliance_name, alliances.alliance_type, alliances.alliance_beg_time, alliances.alliane_adress) VALUES ('Cruz Roja', 'Humanitria', '2017-12-15', 'Frente a Casa Presidencial');-->
-
-
 <?php  
     require_once '../model/conexion.php';
     $conex =  new ConexionMySQL();
     $resulta = $conex->conectar();
     $query_alianzas = "SELECT * FROM alliances;";
-    //$query_clases = "SELECT bridge_benef_openmods.id_open_mod, (SELECT (SELECT modules.module_name FROM modules WHERE modules.id_Modules = open_mods.id_Modules) FROM `open_mods` WHERE open_mods.id_Open_mods = bridge_benef_openmods.id_open_mod) as MODULO, (SELECT open_mods.open_mod_value FROM open_mods WHERE open_mods.id_Open_mods = bridge_benef_openmods.id_open_mod) as VALOR, (SELECT beneficiaries.beneficiary_name FROM beneficiaries WHERE beneficiaries.id_Beneficiaries = bridge_benef_openmods.id_beneficiary) as nombre_beneficiario, (SELECT beneficiaries.beneficiary_last_name FROM beneficiaries WHERE beneficiaries.id_Beneficiaries = bridge_benef_openmods.id_beneficiary) as apellido_beneficiario, bridge_benef_openmods.id_beneficiary FROM bridge_benef_openmods;";
     $con = $conex->usarConexion();
     $alianzas = $conex->consulta_varios($query_alianzas, $con);
-    //$modulos_matriculados = $conex->consulta_varios($query_modulos, $con);
-    //$deudas = [];
-    //$deuda_total = 0;
-    /*foreach ($modulos_matriculados as $row) {
-      $pago_modulo = 0;
-      foreach ($pagos_realizados as $row2) {
-        if ($row2["id_open_mod"]==$row["id_open_mod"] and $row2["id_beneficiary"]==$row["id_beneficiary"]) {
-          $pago_modulo += $row2["bolsas"];
-        }
-      }
-      $deuda = $row["VALOR"] - $pago_modulo;
-      if ($deuda>0) {
-        array_push($deudas, array($deuda, $row["MODULO"], $row["nombre_beneficiario"]." ".$row["apellido_beneficiario"], $row["id_beneficiary"]));
-      }
-      $deuda_total += $deuda;
-    }*/
     $conex->destruir();
 ?>
 
@@ -171,7 +151,7 @@
                   } else {
                     $cadena = '<thead><tr><th>Institución</th><th>Tipo</th><th>Desde</th><th>Dirección</th></tr></thead><tbody>';
                     foreach ($alianzas as $row) {
-                      $cadena .= '<tr><td><a href="">'.$row["alliance_name"].'</a></td><td>'.$row["alliance_type"].'</td><td>'.$row["alliance_beg_time"].'</td><td>'.$row["alliane_adress"].'</td></tr>';
+                      $cadena .= '<tr><td><a onclick="verparticipaciones('.$row["id_Alliances"].')" style="cursor:pointer">'.$row["alliance_name"].'</a></td><td>'.$row["alliance_type"].'</td><td>'.$row["alliance_beg_time"].'</td><td>'.$row["alliane_adress"].'</td></tr>';
                     }
                     $cadena .= '</tbody>';
                     echo $cadena;
@@ -181,112 +161,22 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6"   ><!--Cooperaciones-->
-          <div class="box box-primary box-solid">
-            <div class="box-header">
-              <h4 class="box-title">Participaciones de <b>Municipalidad de San José</b></h4><br>
-              <small class="pull-right">Ha participado en <b>10</b> clases</small>
-            </div>
-            <div class="box-body"> <!--Cooperaciones-->
-              <table class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>Fecha</th>
-                    <th>Módulo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>01/02/2018</td>
-                    <td>Introducción a la informática</td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_clase">
-                        ver clase
-                      </a>
-                    </td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_cooperacion">
-                        ver participación
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>01/02/2018</td>
-                    <td>Mercadeo</td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_clase">
-                        ver clase
-                      </a>
-                    </td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_cooperacion">
-                        ver participación
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>01/02/2018</td>
-                    <td>Administración</td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_clase">
-                        ver clase
-                      </a>
-                    </td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_cooperacion">
-                        ver participación
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>01/02/2018</td>
-                    <td>Contabilidad</td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_clase">
-                        ver clase
-                      </a>
-                    </td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_cooperacion">
-                        ver participación
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>01/02/2018</td>
-                    <td>Matemáticas</td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_clase">
-                        ver clase
-                      </a>
-                    </td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_cooperacion">
-                        ver participación
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>01/02/2018</td>
-                    <td>Aduanas</td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_clase">
-                        ver clase
-                      </a>
-                    </td>
-                    <td>
-                      <a data-toggle="modal" href="#modal-ver_cooperacion">
-                        ver participación
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+
+
+        <div class="col-md-6"><!--Cooperaciones-->
+          <div id="titulo_temp">
+            <h4 >
+              Seleccione una institución
+            </h4>
           </div>
+          <div id="bloque_participaciones" class="box box-primary box-solid" style="display:none">
+          </div>
+            
         </div>
       </div>
-      <div class="modal fade" id="modal-ver_cooperacion"><!--Ver cooperacion-->
+      <div class="modal fade" id="modal-ver_cooperacion" name="modal-ver_cooperacion"><!--Ver cooperacion-->
+        <!--
+
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -303,103 +193,10 @@
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
             </div>
           </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        -->
       </div>
       <div class="modal fade" id="modal-ver_clase"><!--Ver clase-->
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Clase Impartida</h4>
-            </div>
-            <div class="modal-body">
-              <div class="box-body" style="text-align:justify;">
-                <div class="col-sm-6"><!--Datos de la Clase-->
-                  <div class="form-group">
-                    <label>Técnico</label><br>
-                    Técnico en Administración de Empresas
-                  </div>
-                  <div class="form-group">
-                    <label>Módulo</label><br>
-                    Introducción a la Informática
-                  </div>
-                  <div class="form-group">
-                    <label>Fecha en que se impartió</label><br>
-                    01/02/2018
-                  </div>
-                  <div class="form-group">
-                    <label>Horas impartidas</label><br>
-                    4 horas
-                  </div>
-                  <div class="form-group">
-                    <label>Observaciones</label><br>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque ducimus velit, earum quidem, iusto dolorem. Et ipsam totam quas blanditiis, pariatur maxime ipsa iste, doloremque neque doloribus, error. Corrupti, tenetur.
-                  </div>
-                </div>
-                <div class="col-sm-6"><!--Alumnos-->
-                  <div class="box box-solid box-info" id="matriculados">
-                    <div class="box-header">
-                    <h4 class="box-title">Beneficiarios asistentes</h4>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <table class="table table-striped table-hover">
-                        <tbody>
-                          <tr>
-                            <td>Diego Miranda</td>
-                          </tr>
-                          <tr>
-                            <td>Marvin Herrera</td>
-                          </tr>
-                          <tr>
-                            <td>Rodolfo Delgado</td>
-                          </tr>
-                          <tr>
-                            <td>Michael Lazio</td>
-                          </tr>
-                          <tr>
-                            <td>Richard Calderon</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12"><!--Alianzas-->
-                  <div class="box box-solid box-info" id="matriculados">
-                    <div class="box-header">
-                      <h4 class="box-title">Instituciones participantes</h4>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                                            <table class="table table-striped table-hover">
-                        <tbody>
-                          <tr>
-                            <td>Cruz Roja</td>
-                          </tr>
-                          <tr>
-                            <td>Municipalidad de San José</td>
-                          </tr>
-                          <tr>
-                            <td>Fundación Génesis</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
       </div>
       <div class="modal fade" id="modal-registrar_nueva_institucion"><!--Nueva alianza-->
         <div class="modal-dialog">
@@ -490,6 +287,37 @@
 <script src="dist/js/demo.js"></script>
 <!-- Page script -->
 <script>
+  function verparticipaciones(idalianza){
+    //alert(idalianza);
+    document.getElementById("bloque_participaciones").setAttribute("style","display:block");
+    document.getElementById("titulo_temp").setAttribute("style","display:none");
+    $.get("../model/cargar_participaciones.php", {idalianza: idalianza}, function(data) {
+      //alert(data);
+      $("#bloque_participaciones").empty();
+      $("#bloque_participaciones").html(data);
+    });
+  }
+
+  function verclase(id){
+    $( function(){
+      //alert(id);
+      $.get("../controller/cargar_clase.php", { id: id}, function(data) {
+        //alert(data);
+        $("#modal-ver_clase").empty();
+        $("#modal-ver_clase").html(data);
+        
+      });
+    })
+  }
+  function verparticipacion(clase, id){
+    $( function(){
+      $.get("../model/cargar_participacion.php", { id: id, clase: clase}, function(data) {
+        //alert(data);
+        $("#modal-ver_cooperacion").empty();
+        $("#modal-ver_cooperacion").html(data);
+      });
+    })
+  }
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
