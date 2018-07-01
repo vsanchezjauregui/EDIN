@@ -1,22 +1,23 @@
 <?php 
-if(isset($_GET['variable'])) {
+/*if(isset($_GET['variable'])) {
     if ($_GET['variable']) {
       echo '<script language="javascript">alert("Se almacenó con éxito");</script>';
     }else{
       echo '<script language="javascript">alert("Ocurrió un error en el envío. Intentelo de nuevo.");</script>';
     }
-}
+}*/
 ?>
 
 <!DOCTYPE html>
-
-<html>
+ 
+<html> 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>EDIN | Nuevo beneficiario</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" href="dist/img/EduHCa Solo logo.png">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -35,7 +36,7 @@ if(isset($_GET['variable'])) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <style>
     .example-modal .modal {
-      position: relative;
+      position: relative; 
       top: auto;
       bottom: auto;
       right: auto;
@@ -78,7 +79,7 @@ if(isset($_GET['variable'])) {
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar Menu -->
-      <ul class="sidebar-menu" data-widget="tree">
+      <ul class="sidebar-menu" data-widget="tree"> 
         <!-- Optionally, you can add icons to the links -->
         <li class="treeview">
           <a href="#"><i class="fa fa-book"></i> <span>Módulos</span>
@@ -129,10 +130,10 @@ if(isset($_GET['variable'])) {
       </h1>
     </section>
 
-    <!-- Main content -->
+    <!-- Main content --> 
     <section class="content container-fluid">
-      <!-- form start -->
-      <form role="form" action="../controller/crear_beneficiario.php" method="post">
+      <!-- form start 
+      <form role="form" action="../controller/crear_beneficiario.php" method="post">-->
         <div class="row">
           <!-- left column -->
           <div class="col-md-6">
@@ -146,13 +147,13 @@ if(isset($_GET['variable'])) {
                 <div class="form-group">
                   <label class="control-label">Nombre</label>
                   <small>(Campo obligatorio)</small>
-                  <input type="text" class="form-control" name="nombre" placeholder="Nombre del beneficiario" required>
+                  <input type="text" class="form-control" id="nombre" placeholder="Nombre del beneficiario" required>
                 </div>
                 
                 <div class="form-group">
                   <label class="control-label">Apellidos</label>
                   <small>(Campo obligatorio)</small>
-                  <input type="text" class="form-control" name="apellidos" placeholder="Ingrese ambos apellidos" required>
+                  <input type="text" class="form-control" id="apellidos" placeholder="Ingrese ambos apellidos" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Cédula</label>
@@ -161,16 +162,16 @@ if(isset($_GET['variable'])) {
                     <div class="input-group-addon">
                       <i class="fa fa-id-card-o"></i>
                     </div>
-                    <input type="text" class="form-control" name="cedula" data-inputmask='"mask": "9-9999-9999"' data-mask required>
+                    <input type="text" class="form-control" id="cedula" data-inputmask='"mask": "9-9999-9999"' data-mask required>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Estado Civil</label>
-                  <input type="text" class="form-control" name="estadoCivil" placeholder="">
+                  <input type="text" class="form-control" id="estadoCivil" placeholder="">
                 </div>
                 <div class="form-group">
                   <label class="control-label">Número de hijos</label>
-                  <input type="number" min="0" class="form-control" name="hijos" placeholder="">
+                  <input type="number" min="0" class="form-control" id="hijos" placeholder="">
                 </div>
                 <div class="form-group">
                   <label class="control-label">Nacionalidad</label>
@@ -178,7 +179,7 @@ if(isset($_GET['variable'])) {
                     <div class="input-group-addon">
                       <i class="fa fa-globe"></i>
                     </div>
-                    <select class="form-control select2" style="width: 100%;" name="nacionalidad">
+                    <select class="form-control select2" style="width: 100%;" id="nacionalidad">
                       <option value="Afganistan">Afganistán</option>
                       <option value="Alemania">Alemania</option>
                       <option value="Andorra">Andorra</option>
@@ -323,7 +324,7 @@ if(isset($_GET['variable'])) {
                       <option value="Martinica">Martinica</option>
                       <option value="Mauricio">Mauricio</option>
                       <option value="Mauritania">Mauritania</option>
-                      <option value="Mayotte">Mayotte</option>
+                      <option value="Mayotte">Mayotte</option> 
                       <option value="Mexico">México</option>
                       <option value="Micronesia">Micronesia</option>
                       <option value="Moldavia">Moldavia</option>
@@ -421,13 +422,13 @@ if(isset($_GET['variable'])) {
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask required onkeyup="edad()">
+                      <input type="text" id="fecha_nacimiento" id="fecha_nacimiento" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask required onkeyup="calculaEdad()">
                     </div>
                   </div>
                   <div class="form-group col-sm-2">
                     <label class="control-label">Edad</label> 
                     <div class="input-group">
-                      <input type="text"  class="form-control" disabled="true" style="background: white; cursor: auto;">
+                        <p class="control-label" id="edad" style="font-size: x-large"></p> 
                     </div>
                   </div>
                 </div>
@@ -436,13 +437,13 @@ if(isset($_GET['variable'])) {
                     <label>Genero</label>
                     <div class="col-sm-12" >
                     <label>
-                      <input type="radio" class="minimal" name="genero" value="Masculino" checked>
+                      <input type="radio" class="minimal" id="genero" name="genero" value="Masculino" checked>
                     </label>
                     <label>
                       Masculino
                     </label>
                     <label>
-                      <input type="radio" class="minimal-red" name="genero" value="Femenino">
+                      <input type="radio" class="minimal-red" id="genero" name="genero" value="Femenino">
                     </label>
                     <label>
                       Femenino
@@ -452,13 +453,13 @@ if(isset($_GET['variable'])) {
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label class="control-label">Años como indigente</label>
-                      <input type="number" min="0" class="form-control" name="indigencia" placeholder="">
+                      <input type="number" min="0" class="form-control" id="indigencia" placeholder="">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Profesión u oficio</label>
-                  <input type="text" class="form-control" name="profesion" placeholder="">
+                  <input type="text" class="form-control" id="profesion" placeholder="">
                 </div>
               </div>
               <!-- /.box-body -->
@@ -471,20 +472,22 @@ if(isset($_GET['variable'])) {
               <div class="box-body">
                 <div class="form-group">
                   <label class="control-label">Último título adquirido</label>
-                  <input type="text" class="form-control" name="ultimoTitulo">
+                  <input type="text" class="form-control" name="ultimoTitulo" id="ultimoTitulo" onkeyup="utimoTitulo()">
                 </div>
-                <div class="form-group">
-                  <label class="control-label">Centro de estudios</label>
-                  <input type="text" class="form-control" name="centroEstudios">
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Año de culminación</label>
-                  <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
+                <div id="grupoCentroEstudios" style="display:none">
+                    <div class="form-group">
+                      <label class="control-label">Centro de estudios</label>
+                      <input type="text" class="form-control" id="centroEstudios">
                     </div>
-                    <input type="text" class="form-control" name="anoCulminacion" data-inputmask='"mask": "9999"' data-mask>
-                  </div>
+                    <div class="form-group">
+                      <label class="control-label">Año de culminación</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" id="anoCulminacion" data-inputmask='"mask": "9999"' data-mask>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -571,7 +574,7 @@ if(isset($_GET['variable'])) {
                     <div class="input-group-addon">
                       <i class="fa fa-home"></i>
                     </div>
-                    <input type="text" class="form-control" name="telCasa" data-inputmask='"mask": "9999-9999"' data-mask>
+                    <input type="text" class="form-control" id="telCasa" data-inputmask='"mask": "9999-9999"' data-mask>
                   </div>
                 </div>
                 <div class="form-group">
@@ -580,7 +583,7 @@ if(isset($_GET['variable'])) {
                     <div class="input-group-addon">
                       <i class="fa fa-building"></i>
                     </div>
-                    <input type="text" class="form-control" name="telOfinina" data-inputmask='"mask": "9999-9999"' data-mask>
+                    <input type="text" class="form-control" id="telOfinina" data-inputmask='"mask": "9999-9999"' data-mask>
                   </div>
                 </div>
                 <div class="form-group">
@@ -589,7 +592,7 @@ if(isset($_GET['variable'])) {
                     <div class="input-group-addon">
                       <i class="fa fa-mobile"></i>
                     </div>
-                    <input type="text" class="form-control" name="telCelular" data-inputmask='"mask": "9999-9999"' data-mask>
+                    <input type="text" class="form-control" id="telCelular" data-inputmask='"mask": "9999-9999"' data-mask>
                   </div>
                 <div class="form-group">
                   <label class="control-label">Correo electrónico</label>
@@ -597,7 +600,7 @@ if(isset($_GET['variable'])) {
                     <div class="input-group-addon">
                       <i class="fa fa-envelope"></i>
                     </div>
-                    <input type="email" class="form-control" name="correo">
+                    <input type="email" class="form-control" id="correo">
                   </div>
                 </div>
                 </div>
@@ -616,7 +619,7 @@ if(isset($_GET['variable'])) {
                     <div class="input-group-addon">
                       <i class="fa fa-heartbeat"></i>
                     </div>
-                    <input type="text" class="form-control" name="enfermedades" placeholder="Especifique">
+                    <input type="text" class="form-control" id="enfermedades" placeholder="Especifique">
                   </div>
                 </div>
                 <div class="form-group">
@@ -625,7 +628,7 @@ if(isset($_GET['variable'])) {
                     <div class="input-group-addon">
                       <i class="fa fa-medkit"></i>
                     </div>
-                    <input type="text" class="form-control" name="medicamentos" placeholder="Especifique">
+                    <input type="text" class="form-control" id="medicamentos" placeholder="Especifique">
                   </div>
                 </div>
               </div>
@@ -633,37 +636,9 @@ if(isset($_GET['variable'])) {
           </div>
           <!--/.col (right) -->
         </div>
-        <!-- /.row -->
-        <input type="submit" class="btn btn-block btn-primary btn-flat" value="Registrar"></input>
-      </form>
-      <div class="modal fade" id="modal-exito"><!--Ver cooperacion-->
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="box-body" style="text-align:justify;">
-                Beneficiario almacenado con éxito
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade" id="modal-error"><!--Ver cooperacion-->
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="box-body" style="text-align:justify;">
-                No se pudo almacenar el beneficiario
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
+        
+        <input type="submit" class="btn btn-block btn-primary btn-flat" value="Registrar" onclick="registrar()"></input>
+      <!-- /.row </form>-->
     </section>
     <!-- /.content -->
   </div>
@@ -705,24 +680,91 @@ if(isset($_GET['variable'])) {
 <script src="dist/js/demo.js"></script>
 <!-- Page script -->
 <script>
-  function edad(){
-    /*var fecha = this.document.getElementById('senas').value;
-    var hoy = new Date();
-    var cumpleanos = new Date(fecha);
-    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
-    var m = hoy.getMonth() - cumpleanos.getMonth();
-
-    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-        edad--;
+  function utimoTitulo() {
+    var titulo = this.document.getElementById('ultimoTitulo').value;
+    var aux = titulo.replace(/ /g, "");
+    if (aux!=''){
+        this.document.getElementById('grupoCentroEstudios').setAttribute("style", "display:block");
+    } else {
+        this.document.getElementById('ultimoTitulo').value = "";
+        this.document.getElementById('grupoCentroEstudios').setAttribute("style", "display:none");
     }
-
-    alert("cumple" + cumpleanos);
-    if (edad>-1) {
-      alert("entro");
-    };
-    /*if (edad==NaN) {
-      alert("entro");
-    };*/
+  }
+  function registrar(){
+    
+    var nombre = document.getElementById("nombre").value;
+    var apellidos = document.getElementById("apellidos").value;
+    var cedula = document.getElementById("cedula").value;
+    var estadoCivil = document.getElementById("estadoCivil").value;
+    var hijos = document.getElementById("hijos").value;
+    var indigencia = document.getElementById("indigencia").value;
+    var nacionalidad = document.getElementById("nacionalidad").value;
+    var fecha_nacimiento = document.getElementById("fecha_nacimiento").value;
+    var genero =  $('input[name="genero"]:checked').val();//document.getElementById("genero").value;
+    var profesion = document.getElementById("profesion").value;
+    var ultimoTitulo = document.getElementById("ultimoTitulo").value;
+    var centroEstudios = document.getElementById("centroEstudios").value;
+    var anoCulminacion = document.getElementById("anoCulminacion").value;
+    var canton = document.getElementById("canton").value; 
+    var provincia = document.getElementById("provincia").value;
+    var distrito = document.getElementById("distrito").value;
+    var senas = document.getElementById("senas").value;
+    var telCasa = document.getElementById("telCasa").value;
+    var telOfinina = document.getElementById("telOfinina").value;
+    var telCelular= document.getElementById("telCelular").value;
+    var correo = document.getElementById("correo").value;
+    var enfermedades = document.getElementById("enfermedades").value;
+    var medicamentos = document.getElementById("medicamentos").value;
+    
+    if (nombre.replace(/ /g, "") == ''){
+        alert("Por favor indique el nombre del beneficiario");
+    } else if (apellidos.replace(/ /g, "") == '') {
+        alert("Por favor indique el apellido del beneficiario")
+    } else if (cedula.replace(/_|-|/g, "").length!=9){
+        alert("Por favor indique la cédula del beneficiario")
+    } else if (fecha_nacimiento.replace(/m|y|\//g, "").length!=8){
+        alert("Por favor indique la fecha de nacimiento del beneficiario")
+    } else {
+        $.get("../controller/crear_beneficiario.php", {nombre:nombre, apellidos:apellidos, cedula:cedula, estadoCivil: estadoCivil, hijos: hijos, indigencia:indigencia, nacionalidad:nacionalidad, fecha_nacimiento:fecha_nacimiento, genero:genero, profesion:profesion, ultimoTitulo:ultimoTitulo, centroEstudios:centroEstudios, anoCulminacion:anoCulminacion, canton:canton, provincia:provincia, distrito: distrito, senas: senas, telCasa: telCasa, telOfinina: telOfinina, correo: correo, enfermedades: enfermedades, medicamentos:medicamentos}, function(data) {
+            if  (data == 1){
+                alert("Beneficiario almacenado")
+                window.location.href='registrar_beneficiario.php'
+            }
+        });
+    }
+  }
+  function calculaEdad(){
+    var fecha = this.document.getElementById('fecha_nacimiento').value;
+    var dia = fecha.slice(0, 2);
+    var mes = fecha.slice(3, 5);
+    var ano = fecha.slice(6);
+    
+    
+    if ((!isNaN(dia))&&(!isNaN(mes))&&(!isNaN(ano))){
+        
+        fecha_hoy = new Date();
+        ahora_ano = fecha_hoy.getYear();
+        ahora_mes = fecha_hoy.getMonth();
+        ahora_dia = fecha_hoy.getDate();
+        ages = (ahora_ano + 1900) - ano;
+        
+        if ( ahora_mes < (mes - 1)){
+          ages--;
+        }
+        if (((mes - 1) == ahora_mes) && (ahora_dia < dia)){ 
+          ages--;
+        }
+        if (ages > 1900){
+            ages -= 1900;
+        }
+        if (ages>100){
+            this.document.getElementById("edad").innerHTML = "";
+        } else{
+            this.document.getElementById("edad").innerHTML = ages;
+        }
+    } else {
+        this.document.getElementById("edad").innerHTML = "";
+    }
   }
   $(function () {
     //Initialize Select2 Elements

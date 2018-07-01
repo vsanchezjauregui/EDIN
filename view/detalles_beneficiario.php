@@ -3,7 +3,7 @@
     $beneficiario = $_GET["idbeneficiario"];
     $conex =  new ConexionMySQL();
     $resulta = $conex->conectar();
-    $query_datos = "SELECT * from Beneficiaries WHERE id_Beneficiaries=$beneficiario";
+    $query_datos = "SELECT * from beneficiaries WHERE id_Beneficiaries=$beneficiario";
     $query_modulos = "SELECT (SELECT open_mods.id_Open_mods FROM open_mods WHERE open_mods.id_Open_mods = bridge_benef_openmods.id_open_mod) as id, (SELECT (SELECT modules.module_name FROM modules WHERE modules.id_Modules = open_mods.id_Modules) FROM `open_mods` WHERE open_mods.id_Open_mods = bridge_benef_openmods.id_open_mod) as MODULO,  bridge_benef_openmods.status_benef, (SELECT open_mods.open_mod_date_from FROM open_mods WHERE open_mods.id_Open_mods = bridge_benef_openmods.id_open_mod) as FECHA, (SELECT open_mods.open_mod_value FROM open_mods WHERE open_mods.id_Open_mods = bridge_benef_openmods.id_open_mod) as VALOR FROM bridge_benef_openmods WHERE bridge_benef_openmods.id_beneficiary=$beneficiario;";
     $query_modulos_ganados = "SELECT COUNT(*) AS ganados FROM bridge_benef_openmods WHERE bridge_benef_openmods.status_benef = 'ganado' and bridge_benef_openmods.id_beneficiary=$beneficiario;";
     $query_clases = "SELECT (SELECT (SELECT (SELECT modules.module_name FROM modules WHERE modules.id_Modules = open_mods.id_Modules ) FROM `open_mods` WHERE open_mods.id_Open_mods = classes.id_Open_mods ) FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes ) as MODULO, ( SELECT classes.class_date FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes ) as FECHA, ( SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes ) as DURACION FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries=$beneficiario;";
@@ -50,6 +50,7 @@
   <title>EDIN | Detalles del Beneficiario</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" href="dist/img/EduHCa Solo logo.png">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->

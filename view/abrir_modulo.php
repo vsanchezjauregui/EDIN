@@ -17,6 +17,7 @@
   <title>EDIN | Abrir Módulo</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" href="dist/img/EduHCa Solo logo.png">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -29,7 +30,7 @@
   <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!--skin-->
+  <!--skin--> 
   <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -133,7 +134,10 @@
     <!-- Main content -->
     <section class="content container-fluid">
       <div class="row col-md-12" id="contenidoNO">
-        <h4>No se pueden abrir módulos hasta que haya al menos un beneficiario matriculado</h4>
+        <h4 style="text-align:center">No se pueden abrir módulos hasta que haya al menos un beneficiario matriculado</h4>
+        <div style="display:flex; justify-content:center">
+            <button class="btn btn-primary" onclick="window.location.href='registrar_beneficiario.php'"><i class="fa fa-user-plus"></i> Registrar un beneficiario</button>
+        </div>
       </div>
       <div class="row" id="contenidoSI">
         <!-- left column -->

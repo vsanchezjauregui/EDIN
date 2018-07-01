@@ -4,36 +4,42 @@
     $resulta = $conex->conectar();
     $con = $conex->usarConexion();
 
-    $nombre = $_POST["nombre"];
-    $apellido = $_POST["apellidos"];
-    $cedula = $_POST["cedula"][0].substr($_POST["cedula"],2,4).substr($_POST["cedula"],7,4);
-    $estadoCivil = $_POST["estadoCivil"];
-    $hijos = $_POST["hijos"];
-    $indigencia = $_POST["indigencia"];
-    $nacionalidad = strtolower($_POST["nacionalidad"]);
-    $fecha_nacimiento = substr($_POST["fecha_nacimiento"], 6)."-".substr($_POST["fecha_nacimiento"], 3,2)."-".substr($_POST["fecha_nacimiento"], 0,2);
-    $genero = strtolower($_POST["genero"]);
-    $profesion = $_POST["profesion"];
+    $nombre = $_GET["nombre"];
+    $apellido = $_GET["apellidos"];
+    $cedula = $_GET["cedula"][0].substr($_GET["cedula"],2,4).substr($_GET["cedula"],7,4);
+    $estadoCivil = $_GET["estadoCivil"];
+    $hijos = $_GET["hijos"];
+    $indigencia = $_GET["indigencia"];
+    $nacionalidad = strtolower($_GET["nacionalidad"]);
+    $fecha_nacimiento = substr($_GET["fecha_nacimiento"], 6)."-".substr($_GET["fecha_nacimiento"], 3,2)."-".substr($_GET["fecha_nacimiento"], 0,2);
+    $genero = strtolower($_GET["genero"]);
+    $profesion = $_GET["profesion"];
     $profesion_recortada = str_replace(' ', '', $profesion);
-    $ultimoTitulo = $_POST["ultimoTitulo"];
-    $centroEstudios = $_POST["centroEstudios"];
-    $anoCulminacion = $_POST["anoCulminacion"];
+    $ultimoTitulo = $_GET["ultimoTitulo"];
+    $centroEstudios = $_GET["centroEstudios"];
+    $anoCulminacion = $_GET["anoCulminacion"];
 
-    $query_direcion = 'SELECT distrito.nombre as DISTRITO, (SELECT canton.nombre FROM canton WHERE canton.numeroCanton = '.$_POST["canton"].') as CANTON, (SELECT provincia.nombre FROM provincia WHERE provincia.numeroProvincia = '.$_POST["provincia"].') as PROVINCIA from distrito WHERE distrito.numeroDistrito = '.$_POST["distrito"];
+    $query_direcion = 'SELECT distrito.nombre as DISTRITO, (SELECT canton.nombre FROM canton WHERE canton.numeroCanton = '.$_GET["canton"].') as CANTON, (SELECT provincia.nombre FROM provincia WHERE provincia.numeroProvincia = '.$_GET["provincia"].') as PROVINCIA from distrito WHERE distrito.numeroDistrito = '.$_GET["distrito"];
     $direcion = $conex->consultaunica($query_direcion, $con);
 
     $provincia = $direcion["PROVINCIA"];
     $canton = $direcion["CANTON"];
     $distrito = $direcion["DISTRITO"];
-    $senas = $_POST["senas"];
-    $telCasa = substr($_POST["telCasa"],0,4).substr($_POST["telCasa"],5,4);
-    $telOfinina = substr($_POST["telOfinina"],0,4).substr($_POST["telOfinina"],5,4);
-    $telCelular= substr($_POST["telCelular"],0,4).substr($_POST["telCelular"],5,4);
-    $correo = $_POST["correo"];
-    $enfermedades = $_POST["enfermedades"];
-    $medicamentos = $_POST["medicamentos"];
+    $senas = $_GET["senas"];
+    if (isset($_GET["telCasa"])){
+        $telCasa = substr($_GET["telCasa"],0,4).substr($_GET["telCasa"],5,4);
+    }
+    if (isset($_GET["telOfinina"])){
+        $telOfinina = substr($_GET["telOfinina"],0,4).substr($_GET["telOfinina"],5,4);
+    }
+    if (isset($_GET["telCelular"])){
+        $telCelular= substr($_GET["telCelular"],0,4).substr($_GET["telCelular"],5,4);
+    }
+    $correo = $_GET["correo"];
+    $enfermedades = $_GET["enfermedades"];
+    $medicamentos = $_GET["medicamentos"];
     
-
+ 
     $campos = '	`beneficiary_name`,
     			`beneficiary_last_name`,
     			`beneficiary_id_num`,
@@ -128,14 +134,10 @@
 
     $query = "INSERT INTO `beneficiaries` (".$campos.") VALUES (".$valores.")";
 
-    //echo $query;
+    
     $insertar = mysqli_query($con,$query);
-
-    if (!$insertar) { 
-		header('Location: ../view/registrar_beneficiario.php?variable=false');
-	} else{
-		header('Location: ../view/registrar_beneficiario.php?variable=true');
-	}
+    
+    echo $insertar;
 
 
     $conex->destruir();

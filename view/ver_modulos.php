@@ -7,6 +7,7 @@
   <title>EDIN | Ver Módulos</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" href="dist/img/EduHCa Solo logo.png">
   
   <!-- jQuery 3 -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>

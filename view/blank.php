@@ -1,3 +1,17 @@
+<?php
+  require_once '../model/conexion.php';
+  $conex =  new ConexionMySQL();
+  $resulta = $conex->conectar();
+  $con = $conex->usarConexion();
+  $query_contar_beneficiarios = "SELECT COUNT(beneficiaries.id_Beneficiaries) as BENEFICIARIOS FROM beneficiaries";
+  $query_contar_clases = "SELECT COUNT(classes.id_Classes) AS CLASES FROM classes";
+  $query_contar_alianzas = "SELECT COUNT(alliances.id_Alliances) as ALIANZAS FROM alliances";
+  $query_contar_pagos = "SELECT SUM(payments.payment_value) as BOLSAS FROM payments";
+  $beneficiarios = $conex->consultaunica($query_contar_beneficiarios, $con);
+  $clases = $conex->consultaunica($query_contar_clases, $con);
+  $alianzas = $conex->consultaunica($query_contar_clases, $con);
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -7,6 +21,7 @@
   <title>Sistema de Información Gerencial EDIN | Municipalidad de San José</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" href="dist/img/EduHCa Solo logo.png">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
@@ -100,11 +115,75 @@
         Bienvenidos al Sistema de Información Gerencial del Programa <strong>EDIN | Municipalidad de San José</strong>
       </h1>
     </section>
+    <section class="content" >
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red" >
+            <div class="inner">
+              <h3><?php echo $beneficiarios["BENEFICIARIOS"]?></h3>
+              <p>Beneficiarios</p>
+            </div>
+            <div class="icon" onclick="window.location.href='registrar_beneficiario.php'" style="cursor:pointer">
+              <i class="fa fa-users"></i>
+            </div>
+            <a href="listar_beneficiarios.php" class="small-box-footer">
+              Ver todos <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-teal">
+            <div class="inner">
+              <h3><?php echo $beneficiarios["BENEFICIARIOS"]?></h3>
+              <p>Clases impartidas</p>
+            </div>
+            <div class="icon" onclick="window.location.href='registrar_clase.php'" style="cursor:pointer">
+              <i class="fa fa-graduation-cap"></i>
+            </div>
+            <a href="ver_modulos_impartidos.php" class="small-box-footer">
+              Ver todas <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-orange">
+            <div class="inner">
+              <h3><?php echo $beneficiarios["BENEFICIARIOS"]?></h3>
+              <p>Instituciones</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-handshake-o"></i>
+            </div>
+            <a href="ver_instituciones.php" class="small-box-footer">
+              Ver todas <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3><?php echo $beneficiarios["BENEFICIARIOS"]?><sup style="font-size: 15px"> bolsas</sup></h3>
+              <p>Recolectadas</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-recycle"></i>
+            </div>
+            <a href="registrar_pago.php" class="small-box-footer">
+              Ver y reistrar pagos <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Main content -->
-    <section class="content container-fluid">
+    <!--<section class="content container-fluid">
       <input type="button" class="btn btn-flat btn-block"  onclick="window.open('../controller/verificar_conexion.php');" value="Probar"/>
-    </section>
+    </section>-->
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

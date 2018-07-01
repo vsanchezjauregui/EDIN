@@ -22,7 +22,7 @@
           $querygeneral .= "beneficiary_nationality = '".$row."' or ";
         }
         $querygeneral = substr($querygeneral, 0, -3);  
-        $querygeneral .= ")";
+        $querygeneral .= ")"; 
       }
       if (isset($_GET['oficios'])) {
         $oficios_fil = unserialize($_GET['oficios']);
@@ -60,8 +60,9 @@
         $querygeneral = substr($querygeneral, 0, -3);  
         $querygeneral .= ")";
       }
-
     }
+    
+    
     require_once '../model/conexion.php';
     $conex =  new ConexionMySQL();
     $resulta = $conex->conectar();
@@ -78,6 +79,7 @@
     $distritos = $conex->consulta_varios($query_distritos, $con);
     $query_formacion_max = "SELECT    MAX((SELECT SUM((SELECT classes.class_time FROM classes WHERE classes.id_Classes = bridge_class_benef.id_classes)) FROM bridge_class_benef WHERE bridge_class_benef.id_Beneficiaries = beneficiaries.id_Beneficiaries)) AS formacionmaxima from beneficiaries";
     $max_formacion = $conex->consultaunica($query_formacion_max, $con);
+ 
     $query_edad_min = "Select MAX(beneficiaries.beneficiary_birth) as nacimientominima FROM beneficiaries";
     $min_nacimiento = $conex->consultaunica($query_edad_min, $con);
     $naciemiento_min = new DateTime($min_nacimiento["nacimientominima"]);
@@ -110,6 +112,7 @@
   <title>EDIN | Ver Beneficiarios</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" href="dist/img/EduHCa Solo logo.png">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
@@ -316,13 +319,13 @@
                       <div class="form-group"><!--Edad-->
                         <label>Edad</label><br>
 
-                        <div class="col-sm-2 no-margin no-padding"><?php echo $min_edad?> años</div>
+                        <div class="col-sm-2 no-margin no-padding"><small><?php echo $min_edad?> años</small></div>
                         <div class="col-sm-7">
                         <input id="edad" name="edad" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo $min_edad?>" data-slider-max="<?php echo $max_edad?>" data-slider-step="1" data-slider-value="[<?php echo $min_edad.','.$max_edad?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
 
                        
                         </div>
-                        <div class="col-sm-3 no-margin no-padding"><?php echo $max_edad?> años</div>
+                        <div class="col-sm-3 no-margin no-padding"><small><?php echo $max_edad?> años</small></div>
                       </div>
                       <br>
                       <div class="form-group"><!--Nacionalidad-->
@@ -350,11 +353,11 @@
                       </div>
                       <div class="form-group"><!--Indigencia-->
                         <label>Tiempo en condición de indigencia</label><br>
-                        <div class="col-sm-2 no-margin no-padding"><?php echo $min_indigencia['indigenciaminima'] ?> años</div>
+                        <div class="col-sm-2 no-margin no-padding"><small><?php echo $min_indigencia['indigenciaminima'] ?> años</small></div>
                         <div class="col-sm-7">
                         <input name="indigen" id="indigen" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="<?php echo $min_indigencia['indigenciaminima'] ?>" data-slider-max="<?php echo $max_indigencia['indigenciamaxima'] ?>" data-slider-step="1" data-slider-value="[<?php echo  $min_indigencia['indigenciaminima'].','.$max_indigencia['indigenciamaxima']  ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
                         </div>
-                        <div class="col-sm-3 no-margin no-padding"><?php echo $max_indigencia['indigenciamaxima'] ?> años</div>
+                        <div class="col-sm-3 no-margin no-padding"><small><?php echo $max_indigencia['indigenciamaxima'] ?> años</small></div>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -396,11 +399,34 @@
                       </div>
                       <div class="form-group"><!--Formacion-->
                         <label>Horas de formación recibidas</label><br>
-                        <div class="col-sm-2 no-margin no-padding">0 horas</div>
+                        <div class="col-sm-2 no-margin no-padding"><small>0 horas</small></div>
                         <div class="col-sm-7">
-                        <input name="horas" id="horas" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="<?php echo "0" /*$max_formacion['formacionmaxima']*/ ?>" data-slider-step="1" data-slider-value="[0,<?php echo /*$max_formacion['formacionmaxima']*/"0" ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
+                        <input name="horas" id="horas" type="text" value="" class="slider form-control no-margin no-padding" data-slider-min="0" data-slider-max="
+                        <?php
+                            if (is_null($max_formacion['formacionmaxima'])){
+                                echo "0";
+                            } else {
+                                echo $max_formacion['formacionmaxima'];
+                            } 
+                        ?>
+                        " data-slider-step="1" data-slider-value="[0,
+                        <?php
+                            if (is_null($max_formacion['formacionmaxima'])){
+                                echo 0;
+                            } else {
+                                echo $max_formacion['formacionmaxima'];
+                            }
+                        ?>]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
                         </div>
-                        <div class="col-sm-3 no-margin no-padding"><?php echo $max_formacion['formacionmaxima'] ?> horas</div>
+                        <div class="col-sm-3 no-margin no-padding"><small>
+                            <?php 
+                                if (is_null($max_formacion['formacionmaxima'])){
+                                    echo 0;
+                                } else {
+                                    echo $max_formacion['formacionmaxima'];
+                                } 
+                            ?>
+                            horas</small></div>
                       </div>
                     </div>
                   </div>
