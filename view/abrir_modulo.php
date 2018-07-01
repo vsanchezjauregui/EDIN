@@ -90,7 +90,7 @@
           <ul class="treeview-menu">
             <li><a href="ver_modulos.php">Ver Módulos</a></li>
             <li><a href="abrir_modulo.php">Abrir Módulo</a></li>
-            <li><a href="registrar_clase.php">Registrar clase</a></li>
+            <li><a href="registrar_clase.php">Registrar clase impartida</a></li>
             <li><a href="ver_modulos_impartidos.php">Ver Clases y Módulos impartidos</a></li>
           </ul>
         </li>
@@ -132,65 +132,65 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-      <!-- form start -->
-      <form role="form" ><!--action="../controller/abrir_modulo.php" method="post"-->
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="box box-info" id="nuevoModulo">
-              <div class="box-body">
-                <div class="form-group">
-                  <label class="control-label">Indique el Técnico</label>
-                  <select class="form-control select2" style="width: 100%;" name="tecnico" id="tecnico">
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Indique el Módulo</label>
-                  <select class="form-control select2" style="width: 100%;" id="modulo" name="modulo">
-
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Valor del Módulo</label><br>
-                  <small>(Los Módulos son valorados en Bolsas de Desechos recogidas por los beneficiarios. Por favor indique la cantidad que corresponda al pago del Módulo que desea abrir)</small>
-                  <input class="form-control" type="number" id="valorModulo" name="valorModulo"  min="1" value="1" requiered>
-                </div>
-              </div>
-              <!-- /.box-body -->
-            </div>
-          </div>
-            <!-- /.box -->
-            <!--/.col (left) -->
-          <!-- right column -->
-          <div class="col-md-6">
-            <div class="box box-info" >
-              <div class="box-header">
-              <h3 class="box-title">Beneficiarios matriculados</h3>
-            </div>
-            <!-- /.box-header -->
+      <div class="row col-md-12" id="contenidoNO">
+        <h4>No se pueden abrir módulos hasta que haya al menos un beneficiario matriculado</h4>
+      </div>
+      <div class="row" id="contenidoSI">
+        <!-- left column -->
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="box box-info" id="nuevoModulo">
             <div class="box-body">
-              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-              <ul class="todo-list" id="matriculados" name="matriculados">
-                Para marticular beneficiarios, haga click en el botón "Agregar beneficiario"
-              </ul>
+              <div class="form-group">
+                <label class="control-label">Indique el Técnico</label>
+                <select class="form-control select2" style="width: 100%;" name="tecnico" id="tecnico">
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Indique el Módulo</label>
+                <select class="form-control select2" style="width: 100%;" id="modulo" name="modulo">
+
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Valor del Módulo</label><br>
+                <small>(Los Módulos son valorados en Bolsas de Desechos recogidas por los beneficiarios. Por favor indique la cantidad que corresponda al pago del Módulo que desea abrir)</small>
+                <input class="form-control" type="number" id="valorModulo" name="valorModulo"  min="1" value="1" requiered>
+              </div>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix no-border">
-              <button type="button" class="btn btn-default pull-right" data-toggle="modal" href="#modal-agregar_beneficiario"><i class="fa fa-user-plus"></i> Agregar beneficiario</button>
-            </div>
-            </div>
           </div>
-          <!--/.col (right) -->
         </div>
-        <!-- /.row -->
-        <input type="submit" class="btn btn-block btn-primary btn-flat" id="registrar" name="registrar" value="Registrar"></input>
-      </form>
+          <!-- /.box -->
+          <!--/.col (left) -->
+        <!-- right column -->
+        <div class="col-md-6">
+          <div class="box box-info" >
+            <div class="box-header">
+            <h3 class="box-title">Beneficiarios matriculados</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+            <ul class="todo-list" id="matriculados" name="matriculados">
+              Para matricular beneficiarios, haga click en el botón "Agregar beneficiario"
+            </ul>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer clearfix no-border">
+            <button type="button" class="btn btn-default pull-right" data-toggle="modal" href="#modal-agregar_beneficiario"><i class="fa fa-user-plus"></i> Agregar beneficiario</button>
+          </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <button class="btn btn-block btn-primary btn-flat" id="registrar" name="registrar" onclick="registrar()">Registrar</button>
+        </div>  
+      </div>
 
       <div class="modal fade" id="modal-agregar_beneficiario">
         <div class="modal-dialog">
           <div class="modal-content">
-            <form role="form" ><!--action="../controller/seleccionados.php"-->
+            <form role="form" >
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
@@ -265,6 +265,36 @@
 <script src="../controller/abrir_modulo.js"></script>
 <!-- Page script -->
 <script>
+  window.onload = function () {
+    
+    $.get("../model/contar_beneficiarios.php", { }, function(data) {
+      if (data != 0) {
+        document.getElementById("contenidoNO").setAttribute("style","display:none");
+        document.getElementById("contenidoSI").setAttribute("style","display:block");
+      } else {
+        document.getElementById("contenidoSI").setAttribute("style","display:none");
+        document.getElementById("contenidoNO").setAttribute("style","display:block");
+      };
+    });
+  }
+  function registrar(){
+      var clicked = new Array();
+      $('input[type=checkbox]:checked').each(function() {
+          clicked.push($(this).val());
+      });
+      if (clicked.length == 0) {
+        alert("Debe seleccionar al menos un beneficiario matriculado");
+      } else {
+        var tecnico = $("#tecnico").val();
+        var modulo = $("#modulo").val();
+        var valorModulo = $("#valorModulo").val();
+        //alert(clicked.length);
+        $.get("../controller/abrir_modulo.php", { seleccionados: clicked, tecnico : tecnico, modulo: modulo, valorModulo: valorModulo }, function(data) {
+            alert(data)
+            window.location.href='abrir_modulo.php';
+        });
+      };
+  }
   $(function () {
 
     //Initialize Select2 Elements

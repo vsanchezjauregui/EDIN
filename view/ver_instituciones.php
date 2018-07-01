@@ -94,7 +94,7 @@
           <ul class="treeview-menu">
             <li><a href="ver_modulos.php">Ver Módulos</a></li>
             <li><a href="abrir_modulo.php">Abrir Módulo</a></li>
-            <li><a href="registrar_clase.php">Registrar clase</a></li>
+            <li><a href="registrar_clase.php">Registrar clase impartida</a></li>
             <li><a href="ver_modulos_impartidos.php">Ver Clases y Módulos impartidos</a></li>
           </ul>
         </li>
@@ -130,7 +130,7 @@
     <section class="content-header">
       <h1>
         Instituciones aliadas al Programa EDIN | Municipalidad de San José
-        <small>Selecciona una insitución para ver sus cooperaciones</small>
+        <small>Selecciona una institución para ver sus cooperaciones</small>
       </h1>
     </section>
     <!-- Main content -->

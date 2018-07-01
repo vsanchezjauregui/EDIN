@@ -28,20 +28,5 @@ $( function() {
 
     });
 
-    $('#registrar').on('click', function() {
-        var clicked = new Array();
-        $('input[type=checkbox]:checked').each(function() {
-            clicked.push($(this).val());
-        });
-        var tecnico = $("#tecnico").val();
-        var modulo = $("#modulo").val();
-        var valorModulo = $("#valorModulo").val();
 
-        $.get("../controller/abrir_modulo.php", { seleccionados: clicked, tecnico : tecnico, modulo: modulo, valorModulo: valorModulo }, function(data) {
-            alert(data);
-        });
-
-    });
-
-    
 });

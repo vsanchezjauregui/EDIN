@@ -189,7 +189,7 @@
           <ul class="treeview-menu">
             <li><a href="ver_modulos.php">Ver Módulos</a></li>
             <li><a href="abrir_modulo.php">Abrir Módulo</a></li>
-            <li><a href="registrar_clase.php">Registrar clase</a></li>
+            <li><a href="registrar_clase.php">Registrar clase impartida</a></li>
             <li><a href="ver_modulos_impartidos.php">Ver Clases y Módulos impartidos</a></li>
           </ul>
         </li>
@@ -329,9 +329,7 @@
                         <label>Nacionalidad</label>
                         <small>Para todos, deje este campo vacío</small>
                         <select name="nac[]" id="nac[]" class="form-control select2" multiple="multiple" multiple style="width: 100%;">
-                        <!--------Hay que arreglar los "codigos de pais" por los paises respectivos. -------->
-                        <!--      Me parece prudente corregirlo desde la insersion pero eso implica buscar luego para pasar las banderas
-                      -->
+                      
                           <?php 
                             foreach ($nacionalidades as $nacionalidad) {
                               echo "<option value='".$nacionalidad["beneficiary_nationality"]."'>".ucwords($nacionalidad["beneficiary_nationality"], " ")."</option>";

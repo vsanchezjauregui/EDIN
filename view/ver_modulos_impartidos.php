@@ -101,7 +101,7 @@
           <ul class="treeview-menu">
             <li><a href="ver_modulos.php">Ver Módulos</a></li>
             <li><a href="abrir_modulo.php">Abrir Módulo</a></li>
-            <li><a href="registrar_clase.php">Registrar clase</a></li>
+            <li><a href="registrar_clase.php">Registrar clase impartida</a></li>
             <li><a href="ver_modulos_impartidos.php">Ver Clases y Módulos impartidos</a></li>
           </ul>
         </li>
@@ -281,10 +281,10 @@
               <ul><a href="abrir_modulo.php"><b>Abrir nuevo Módulo</b></a></ul>
               <?php 
               if (!$abiertos == 0) {
-                    echo '<ul><a data-toggle="modal" href="#modal-cerrar_modulo"><b>Cerrar Módulos en curso</b></a></ul>';
+                    echo '<ul><a data-toggle="modal" href="#modal-cerrar_modulo"><b>Cerrar Módulos en curso</b></a></ul>
+                          <ul><a href="registrar_clase.php"><b>Registrar clase impartida</b></a></ul>';
               }
               ?>
-              <ul><a href="registrar_clase.php"><b>Registrar clase impartida</b></a></ul>
             </div>
           </div>
         </div>

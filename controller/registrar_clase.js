@@ -9,9 +9,10 @@ $( function() {
     });
     $("#modulo").change(function(){
         $.get("../model/llenar_combo_matriculados.php", { idmodulo: $("#modulo").val()}, function(data) {
-            $("#matriculados").innerHTML = '';
-            $("#matriculados").html(data);
+            $("#tabla_matriculados").innerHTML = '';
+            $("#tabla_matriculados").html(data);
         });
+        document.getElementById("tabla_matriculados").setAttribute("style", "display:block");
     });
 
 

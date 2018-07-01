@@ -14,7 +14,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>EDIN | Registrar Clase</title>
+  <title>EDIN | Registrar Clase Impartida</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -90,7 +90,7 @@
           <ul class="treeview-menu">
             <li><a href="ver_modulos.php">Ver Módulos</a></li>
             <li><a href="abrir_modulo.php">Abrir Módulo</a></li>
-            <li><a href="registrar_clase.php">Registrar clase</a></li>
+            <li><a href="registrar_clase.php">Registrar clase impartida</a></li>
             <li><a href="ver_modulos_impartidos.php">Ver Clases y Módulos impartidos</a></li>
           </ul>
         </li>
@@ -133,99 +133,90 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-      <!-- form start -->
-      <!--<form role="form" action="../controller/crear_clase.php" method="post">-->
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-4"><!--Clase-->
-            <div class="box box-info" id="nuevoModulo">
-              <div class="box-body">
-                <div class="form-group"><!--Tecnico-->
-                  <label class="control-label">Indique el Técnico</label>
-                  <select class="form-control" id="tecnico" name="tecnico">
-
-                  </select>
-                </div>
-                <div class="form-group"><!--Modulo-->
-                  <label class="control-label">Indique el Módulo</label>
-                  <select class="form-control" id="modulo" name="modulo" required>
-                  </select>
-                </div>
-                <div class="form-group"><!--Fecha-->
-                  <label class="control-label">Fecha en que se impartió</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" required>
-                  </div>
-                </div>
-                <div class="form-group"><!--Horas-->
-                  <label class="control-label">Horas de clase impartidas</label>
-                  <input type="number" min="0" class="form-control" id="horas" name="horas" required>
-                </div>
-                <div class="form-group"><!--Observaciones-->
-                  <label class="control-label">Observaciones</label>
-                  <textarea class="form-control" rows="3" id="observaciones" name="observaciones"></textarea>
-                </div>                
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4"><!--Alumnos-->
-            <div class="box box-info" id="asistentes">
-              <div class="box-header">
-                <h3 class="box-title">Beneficiarios asistentes</h3>
-              </div>
-            <!-- /.box-header -->
-              <div class="box-body">
-                <div class="box box-solid">
-                  <div class="box-body no-padding" id="tabla_matriculados">
-                    <div class="mailbox-controls">
-                      <!-- Check all button -->
-                      <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                      </button> Seleccionar todos
-                      <!-- /.pull-right -->
-                    </div>
-                    <div class="table-responsive mailbox-messages">
-                      <table class="table table-hover table-striped">
-                        <tbody id="matriculados" name="matriculados">
-                        </tbody>
-                      </table>
-                      <!-- /.table -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4"><!--Alianzas-->
-            <div class="box box-info">
-              <div class="box-header">
-              <h3 class="box-title">Instituciones participantes</h3>
-            </div>
-            <!-- /.box-header -->
+      <div class="row col-md-12" id="contenidoNO">
+        <h4>No se pueden abrir módulos hasta que haya al menos un módulo abierto</h4>
+      </div>
+      <div class="row" id="contenidoSI">
+        <!-- left column -->
+        <div class="col-md-4"><!--Clase-->
+          <div class="box box-info" id="nuevoModulo">
             <div class="box-body">
-              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-              <ul class="todo-list" id="participaciones_creadas" name="participaciones_creadas">
-              </ul>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix no-border">
-              <?php 
-                if (count($alianzas)==0) {
-                  echo '<button type="button" class="btn btn-default pull-right" disabled="true"><i class="fa fa-user-plus"></i> No hay insitituciones registradas</button>';
-                } else{
-                  echo '<button type="button" class="btn btn-default pull-right" data-toggle="modal" href="#modal-agregar_alianza"><i class="fa fa-user-plus"></i> Agregar Institución</button>';
-                }
-              ?>
-            </div>
+              <div class="form-group"><!--Tecnico-->
+                <label class="control-label">Indique el Técnico</label>
+                <select class="form-control" id="tecnico" name="tecnico">
+
+                </select>
+              </div>
+              <div class="form-group"><!--Modulo-->
+                <label class="control-label">Indique el Módulo</label>
+                <select class="form-control" id="modulo" name="modulo" required>
+                </select>
+              </div>
+              <div class="form-group"><!--Fecha-->
+                <label class="control-label">Fecha en que se impartió</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" required>
+                </div>
+              </div>
+              <div class="form-group"><!--Horas-->
+                <label class="control-label">Horas de clase impartidas</label>
+                <input type="number" min="0" class="form-control" id="horas" name="horas" required>
+              </div>
+              <div class="form-group"><!--Observaciones-->
+                <label class="control-label">Observaciones</label>
+                <textarea class="form-control" rows="3" id="observaciones" name="observaciones"></textarea>
+              </div>                
             </div>
           </div>
-          <!--/.col (right) -->
         </div>
-        <!-- /.row -->
-        <button type="button" class="btn btn-block btn-primary btn-flat" onclick='registrarClase()' value="">Registrar</button>
-      <!--</form>-->
+        <div class="col-md-4"><!--Alumnos-->
+          <div class="box box-info" id="asistentes">
+            <div class="box-header">
+              <h3 class="box-title">Beneficiarios asistentes</h3>
+            </div>
+          <!-- /.box-header -->
+            <div class="box-body">
+              <div class="box box-solid">
+                <div class="box-body no-padding" id="tabla_matriculados">
+                  <p style="text-align:center">
+                    Seleccione un Módulo
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"><!--Alianzas-->
+          <div class="box box-info">
+            <div class="box-header">
+            <h3 class="box-title">Instituciones participantes</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+            <ul class="todo-list" id="participaciones_creadas" name="participaciones_creadas">
+            </ul>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer clearfix no-border">
+            <?php 
+              if (count($alianzas)==0) {
+                echo '<button type="button" class="btn btn-default pull-right" disabled="true"><i class="fa fa-user-plus"></i> No hay insitituciones registradas</button>';
+              } else{
+                echo '<button type="button" class="btn btn-default pull-right" data-toggle="modal" href="#modal-agregar_alianza"><i class="fa fa-user-plus"></i> Agregar Institución</button>';
+              }
+            ?>
+          </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <button type="button" class="btn btn-block btn-primary btn-flat" onclick='registrarClase()' value="">Registrar</button>
+        </div>
+      </div>
+
       <div class="modal fade" id="modal-agregar_alianza"><!--Agregar alianza-->
         <div class="modal-dialog">
           <div class="modal-content">
@@ -302,12 +293,18 @@
 
 <!-- Page script -->
 <script>
+
   window.onload = function () {
-    var data1 = "";
-    $.get("../controller/eliminar_temporal.php", { }, function(data) {
-      data1 = data;
+    $.get("../controller/eliminar_temporal.php", { }, function(data) {});
+    $.get("../model/contar_abiertos.php", { }, function(data) {
+      if (data != 0) {
+        document.getElementById("contenidoNO").setAttribute("style","display:none");
+        document.getElementById("contenidoSI").setAttribute("style","display:block");
+      } else {
+        document.getElementById("contenidoSI").setAttribute("style","display:none");
+        document.getElementById("contenidoNO").setAttribute("style","display:block");
+      };
     });
-      return data1;
   }
   
   function registrarClase(){
@@ -325,10 +322,10 @@
       //Hago las validaciones
       if (modulo == 0) {
         //Valido que el Modulo este selecionado
-        alert("Por favor seleccione un modulo");
+        alert("Por favor seleccione un módulo");
       } else if (fecha=='') {
         //Valido la fecha de la clase
-        alert("Por favor seleccione la fecha en que se impartio");
+        alert("Por favor seleccione la fecha en que se impartió");
       } else if (horas == '') {
         //Valido las horas impartidas
         alert("Por favor indique la cantidad de horas de clases impartidas");
@@ -351,14 +348,18 @@
     $( function(){
       var id_alianza = $("#alianza").val();
       var descripcion = $("#participacion").val();
-      
-      $.get("../controller/agregar_participacion.php", { alianza: id_alianza, participacion : descripcion}, function(data) {
-        $("#participaciones_creadas").empty();
-        $("#participaciones_creadas").html(data);
-        $("#participacion").val('');
-        $("#alianza").find("option[value='"+id_alianza+"']").prop("disabled",true);
-        $("#alianza").val('');
-      });
+      if (descripcion == '') {
+        alert("Debe indicar la participación que realizó la institución");
+      } else {
+        $.get("../controller/agregar_participacion.php", { alianza: id_alianza, participacion : descripcion}, function(data) {
+          $("#participaciones_creadas").empty();
+          $("#participaciones_creadas").html(data);
+          $("#participacion").val('');
+          $("#alianza").find("option[value='"+id_alianza+"']").prop("disabled",true);
+          $("#alianza").val('');
+        });
+        alert('Se agregó una participación a la clase. Puede agregar otra o haga click en "Listo" si desea continuar con el registro de la clase');
+      };
     })
   }
   function participacion(id){

@@ -89,7 +89,7 @@ if(isset($_GET['variable'])) {
           <ul class="treeview-menu">
             <li><a href="ver_modulos.php">Ver Módulos</a></li>
             <li><a href="abrir_modulo.php">Abrir Módulo</a></li>
-            <li><a href="registrar_clase.php">Registrar clase</a></li>
+            <li><a href="registrar_clase.php">Registrar clase impartida</a></li>
             <li><a href="ver_modulos_impartidos.php">Ver Clases y Módulos impartidos</a></li>
           </ul>
         </li>
@@ -184,9 +184,9 @@ if(isset($_GET['variable'])) {
                       <option value="Andorra">Andorra</option>
                       <option value="Angola">Angola</option>
                       <option value="Anguilla">Anguilla</option>
-                      <option value="Antigua y Barbuda">Antigua y Barbuda</option>
-                      <option value="Antillas Holandesas">Antillas Holandesas</option>
-                      <option value="Arabia Saudi">Arabia Saudí</option>
+                      <option value="Antigua_y_Barbuda">Antigua y Barbuda</option>
+                      <option value="Antillas_Holandesas">Antillas Holandesas</option>
+                      <option value="Arabia_Saudi">Arabia Saudí</option>
                       <option value="Argelia">Argelia</option>
                       <option value="Argentina">Argentina</option>
                       <option value="Armenia">Armenia</option>
@@ -205,15 +205,15 @@ if(isset($_GET['variable'])) {
                       <option value="Bielorrusia">Bielorrusia</option>
                       <option value="Birmania">Birmania</option>
                       <option value="Bolivia">Bolivia</option>
-                      <option value="Bosnia y Herzegovina">Bosnia y Herzegovina</option>
+                      <option value="Bosnia_y_Herzegovina">Bosnia y Herzegovina</option>
                       <option value="Botswana">Botswana</option>
                       <option value="Brasil">Brasil</option>
                       <option value="Brunei">Brunei</option>
                       <option value="Bulgaria">Bulgaria</option>
-                      <option value="Burkina Faso">Burkina Faso</option>
+                      <option value="Burkina_Faso">Burkina Faso</option>
                       <option value="Burundi">Burundi</option>
                       <option value="Butan">Bután</option>
-                      <option value="Cabo Verde">Cabo Verde</option>
+                      <option value="Cabo_Verde">Cabo Verde</option>
                       <option value="Camboya">Camboya</option>
                       <option value="Camerun">Camerún</option>
                       <option value="Canada">Canadá</option>
@@ -225,11 +225,11 @@ if(isset($_GET['variable'])) {
                       <option value="Colombia">Colombia</option>
                       <option value="Comores">Comores</option>
                       <option value="Congo">Congo</option>
-                      <option value="Congo, República Democratica">Congo, República Democrática</option>
+                      <option value="Congo,_República_Democratica">Congo, República Democrática</option>
                       <option value="Corea">Corea</option>
-                      <option value="Corea del Norte">Corea del Norte</option>
-                      <option value="Costa de Marfil">Costa de Marfíl</option>
-                      <option value="Costa Rica" selected="selected">Costa Rica</option>
+                      <option value="Corea_del_Norte">Corea del Norte</option>
+                      <option value="Costa_de_Marfil">Costa de Marfíl</option>
+                      <option value="Costa_Rica" selected="selected">Costa Rica</option>
                       <option value="Croacia">Croacia</option>
                       <option value="Cuba">Cuba</option>
                       <option value="Dinamarca">Dinamarca</option>
@@ -237,12 +237,12 @@ if(isset($_GET['variable'])) {
                       <option value="Dominica">Dominica</option>
                       <option value="Ecuador">Ecuador</option>
                       <option value="Egipto">Egipto</option>
-                      <option value="El Salvador">El Salvador</option>
-                      <option value="Emiratos Árabes Unidos">Emiratos Árabes Unidos</option>
+                      <option value="El_Salvador">El Salvador</option>
+                      <option value="Emiratos_Árabes_Unidos">Emiratos Árabes Unidos</option>
                       <option value="Eritrea">Eritrea</option>
                       <option value="Eslovenia">Eslovenia</option>
                       <option value="España">España</option>
-                      <option value="Estados Unidos">Estados Unidos</option>
+                      <option value="Estados_Unidos">Estados Unidos</option>
                       <option value="Estonia">Estonia</option>
                       <option value="Etiopia">Etiopía</option>
                       <option value="Fiji">Fiji</option>
@@ -263,10 +263,10 @@ if(isset($_GET['variable'])) {
                       <option value="Guayana">Guayana</option>
                       <option value="Guayana Francesa">Guayana Francesa</option>
                       <option value="Guinea">Guinea</option>
-                      <option value="Guinea Ecuatorial">Guinea Ecuatorial</option>
+                      <option value="Guinea_Ecuatorial">Guinea Ecuatorial</option>
                       <option value="Guinea-Bissau">Guinea-Bissau</option>
                       <option value="Haiti">Haití</option>
-                      <option value="Hong Kong">Hong Kong</option>
+                      <option value="Hong_Kong">Hong Kong</option>
                       <option value="Honduras">Honduras</option>
                       <option value="Hungria">Hungría</option>
                       <option value="India">India</option>
@@ -275,24 +275,24 @@ if(isset($_GET['variable'])) {
                       <option value="Irak">Irak</option>
                       <option value="Iran">Irán</option>
                       <option value="Irlanda">Irlanda</option>
-                      <option value="Isla Bouvet">Isla Bouvet</option>
-                      <option value="Isla de Christmas">Isla de Christmas</option>
+                      <option value="Isla_Bouvet">Isla Bouvet</option>
+                      <option value="Isla_de_Christmas">Isla de Christmas</option>
                       <option value="Islandia">Islandia</option>
-                      <option value="Islas Caiman">Islas Caimán</option>
-                      <option value="Islas Cook">Islas Cook</option>
-                      <option value="Islas de Cocos">Islas de Cocos</option>
-                      <option value="Islas Faroe">Islas Faroe</option>
-                      <option value="Islas Heard y McDonald">Islas Heard y McDonald</option>
-                      <option value="Islas Malvinas">Islas Malvinas</option>
-                      <option value="Islas Marianas del Norte">Islas Marianas del Norte</option>
-                      <option value="Islas Marshall">Islas Marshall</option>
-                      <option value="Islas menores de Estados Unidos">Islas menores de Estados Unidos</option>
-                      <option value="Islas Palau">Islas Palau</option>
-                      <option value="Islas Salomón">Islas Salomón</option>
-                      <option value="Islas Svalbard y Jan Mayen">Islas Svalbard y Jan Mayen</option>
-                      <option value="Islas Tokelau">Islas Tokelau</option>
-                      <option value="Islas Turks y Caicos">Islas Turks y Caicos</option>
-                      <option value="Islas Wallis y Futuna">Islas Wallis y Futuna</option>
+                      <option value="Islas_Caiman">Islas Caimán</option>
+                      <option value="Islas_Cook">Islas Cook</option>
+                      <option value="Islas_de_Cocos">Islas de Cocos</option>
+                      <option value="Islas_Faroe">Islas Faroe</option>
+                      <option value="Islas_Heard_y_McDonald">Islas Heard y McDonald</option>
+                      <option value="Islas_Malvinas">Islas Malvinas</option>
+                      <option value="Islas_Marianas_del_Norte">Islas Marianas del Norte</option>
+                      <option value="Islas_Marshall">Islas Marshall</option>
+                      <option value="Islas_menores_de_Estados_Unidos">Islas menores de Estados Unidos</option>
+                      <option value="Islas_Palau">Islas Palau</option>
+                      <option value="Islas_Salomón">Islas Salomón</option>
+                      <option value="Islas_Svalbard_y_Jan_Mayen">Islas Svalbard y Jan Mayen</option>
+                      <option value="Islas_Tokelau">Islas Tokelau</option>
+                      <option value="Islas_Turks_y_Caicos">Islas Turks y Caicos</option>
+                      <option value="Islas_Wallis_y_Futuna">Islas Wallis y Futuna</option>
                       <option value="Israel">Israel</option>
                       <option value="Italia">Italia</option>
                       <option value="Jamaica">Jamaica</option>
@@ -340,48 +340,48 @@ if(isset($_GET['variable'])) {
                       <option value="Niue">Niue</option>
                       <option value="Norfolk">Norfolk</option>
                       <option value="Noruega">Noruega</option>
-                      <option value="Nueva Caledonia">Nueva Caledonia</option>
-                      <option value="Nueva Zelanda">Nueva Zelanda</option>
+                      <option value="Nueva_Caledonia">Nueva Caledonia</option>
+                      <option value="Nueva_Zelanda">Nueva Zelanda</option>
                       <option value="Omán">Omán</option>
-                      <option value="Países Bajos">Países Bajos</option>
+                      <option value="Países_Bajos">Países Bajos</option>
                       <option value="Panama">Panamá</option>
-                      <option value="Papua Nueva Guinea">Papúa Nueva Guinea</option>
+                      <option value="Papua_Nueva_Guinea">Papúa Nueva Guinea</option>
                       <option value="Paquistan">Paquistán</option>
                       <option value="Paraguay">Paraguay</option>
                       <option value="Peru">Perú</option>
                       <option value="Pitcairn">Pitcairn</option>
-                      <option value="Polinesia Francesa">Polinesia Francesa</option>
+                      <option value="Polinesia_Francesa">Polinesia Francesa</option>
                       <option value="Polonia">Polonia</option>
                       <option value="Portugal">Portugal</option>
-                      <option value="Puerto Rico">Puerto Rico</option>
+                      <option value="Puerto_Rico">Puerto Rico</option>
                       <option value="Qatar">Qatar</option>
-                      <option value="Reino Unido">Reino Unido</option>
-                      <option value="Republica Centroafricana">República Centroafricana</option>
-                      <option value="Republica Checa">República Checa</option>
-                      <option value="Republica de Sudáfrica">República de Sudáfrica</option>
-                      <option value="Repuulica Dominicana">República Dominicana</option>
-                      <option value="Republica Eslovaca">República Eslovaca</option>
+                      <option value="Reino_Unido">Reino Unido</option>
+                      <option value="Republica_Centroafricana">República Centroafricana</option>
+                      <option value="Republica_Checa">República Checa</option>
+                      <option value="Republica_de_Sudáfrica">República de Sudáfrica</option>
+                      <option value="Repuulica_Dominicana">República Dominicana</option>
+                      <option value="Republica_Eslovaca">República Eslovaca</option>
                       <option value="Reunion">Reunión</option>
                       <option value="Ruanda">Ruanda</option>
                       <option value="Rumania">Rumania</option>
                       <option value="Rusia">Rusia</option>
-                      <option value="Sahara Occidental">Sahara Occidental</option>
-                      <option value="Saint Kitts y Nevis">Saint Kitts y Nevis</option>
+                      <option value="Sahara_Occidental">Sahara Occidental</option>
+                      <option value="Saint_Kitts_y_Nevis">Saint Kitts y Nevis</option>
                       <option value="Samoa">Samoa</option>
-                      <option value="Samoa Americana">Samoa Americana</option>
-                      <option value="San Marino">San Marino</option>
-                      <option value="San Vicente y Granadinas">San Vicente y Granadinas</option>
-                      <option value="Santa Helena">Santa Helena</option>
-                      <option value="Santa Lucia">Santa Lucía</option>
-                      <option value="Santo Tome y Principe">Santo Tomé y Príncipe</option>
+                      <option value="Samoa_Americana">Samoa Americana</option>
+                      <option value="San_Marino">San Marino</option>
+                      <option value="San_Vicente_y_Granadinas">San Vicente y Granadinas</option>
+                      <option value="Santa_Helena">Santa Helena</option>
+                      <option value="Santa_Lucia">Santa Lucía</option>
+                      <option value="Santo_Tome_y_Principe">Santo Tomé y Príncipe</option>
                       <option value="Senegal">Senegal</option>
                       <option value="Seychelles">Seychelles</option>
-                      <option value="Sierra Leona">Sierra Leona</option>
+                      <option value="Sierra_Leona">Sierra Leona</option>
                       <option value="Singapur">Singapur</option>
                       <option value="Siria">Siria</option>
                       <option value="Somalia">Somalia</option>
-                      <option value="Sri Lanka">Sri Lanka</option>
-                      <option value="St Pierre y Miquelon">St Pierre y Miquelon</option>
+                      <option value="Sri_Lanka">Sri Lanka</option>
+                      <option value="St_Pierre_y_Miquelon">St Pierre y Miquelon</option>
                       <option value="Suazilandia">Suazilandia</option>
                       <option value="Sudan">Sudán</option>
                       <option value="Suecia">Suecia</option>
@@ -391,10 +391,10 @@ if(isset($_GET['variable'])) {
                       <option value="Taiwa">Taiwán</option>
                       <option value="Tanzania">Tanzania</option>
                       <option value="Tayikistan">Tayikistán</option>
-                      <option value="Timor Oriental">Timor Oriental</option>
+                      <option value="Timor_Oriental">Timor Oriental</option>
                       <option value="Togo">Togo</option>
                       <option value="Tonga">Tonga</option>
-                      <option value="Trinidad y Tobago">Trinidad y Tobago</option>
+                      <option value="Trinidad_y_Tobago">Trinidad y Tobago</option>
                       <option value="Tunez">Túnez</option>
                       <option value="Turkmenistan">Turkmenistán</option>
                       <option value="Turquia">Turquía</option>
@@ -414,14 +414,20 @@ if(isset($_GET['variable'])) {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-sm-12">
+                  <div class="form-group col-sm-10">
                     <label class="control-label">Fecha de Nacimiento</label>
                     <small>(Campo obligatorio)</small> 
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" name="fecha_nacimiento" name="fecha_nacimiento" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask required>
+                      <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask required onkeyup="edad()">
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <label class="control-label">Edad</label> 
+                    <div class="input-group">
+                      <input type="text"  class="form-control" disabled="true" style="background: white; cursor: auto;">
                     </div>
                   </div>
                 </div>
@@ -547,7 +553,7 @@ if(isset($_GET['variable'])) {
                   </div>
                   <div class="form-group">
                     <label>Señas</label>
-                    <textarea class="form-control" rows="3" name="senas" ></textarea>
+                    <textarea class="form-control" rows="3" name="senas" id="senas"></textarea>
                   </div>
                 </div>
                 <!-- /.box-body -->
@@ -699,7 +705,25 @@ if(isset($_GET['variable'])) {
 <script src="dist/js/demo.js"></script>
 <!-- Page script -->
 <script>
+  function edad(){
+    /*var fecha = this.document.getElementById('senas').value;
+    var hoy = new Date();
+    var cumpleanos = new Date(fecha);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    var m = hoy.getMonth() - cumpleanos.getMonth();
 
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+        edad--;
+    }
+
+    alert("cumple" + cumpleanos);
+    if (edad>-1) {
+      alert("entro");
+    };
+    /*if (edad==NaN) {
+      alert("entro");
+    };*/
+  }
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()

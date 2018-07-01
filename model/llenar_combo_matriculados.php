@@ -18,14 +18,27 @@
         //Ejecuto la consulta
         $resultado = mysqli_query($con, $query);
         //Inicio la cadena
-        $cadena="";
+        
         //Recorro el arreglo de respuesta
+        $cadena     =   '
+                            <div class="mailbox-controls">
+                                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button> Seleccionar todos
+                            </div>
+                            <div class="table-responsive mailbox-messages">
+                                <table class="table table-hover table-striped">
+                                    <tbody id="matriculados" name="matriculados">';
         while ($row = $resultado->fetch_array()) {
             $cadena .= '<tr><td><input id="matriculados" name="matriculados[]" type="checkbox" class="flat-red" value="'.$row["id_beneficiario"].'"> '.$row["nombre_beneficiario"].' '.$row["apellido_beneficiario"].'</td></tr>';
         } 
+        $cadena .=                  '</tbody>
+                                </table>
+                            </div>
+                      ';
         echo $cadena;
         }else{
-            echo "Seleccione un Módulo";
+            echo "<p style='text-align:center'>
+                    Seleccione un Módulo
+                  </p>";
         }
         $conex->destruir();     
     }
